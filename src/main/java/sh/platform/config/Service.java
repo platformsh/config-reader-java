@@ -6,6 +6,8 @@ public interface Service {
 
     String getName();
 
+    String getScheme();
+
     String getIp();
 
     String getType();
@@ -18,4 +20,5 @@ public interface Service {
 
     Map<String, String> toMap();
 
+    String getRelatioship();
 }
