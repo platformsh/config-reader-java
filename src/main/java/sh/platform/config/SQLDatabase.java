@@ -3,7 +3,7 @@ package sh.platform.config;
 import java.util.Map;
 import java.util.Optional;
 
-public interface Relational extends Database {
+public interface SQLDatabase extends Database {
 
     String getUserName();
 
@@ -18,4 +18,11 @@ public interface Relational extends Database {
     String getPassword();
 
     String getJDBCURL();
+
+
+    static SQLDatabase get(String name) {
+        Application application = Application.get();
+        Service service = application.getServices().get(name);
+        return new DefaultSQLDatabase(service.toMap());
+    }
 }

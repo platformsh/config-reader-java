@@ -5,12 +5,12 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-final class DefaultRelational extends DefaultService implements Relational {
+final class DefaultSQLDatabase extends DefaultService implements SQLDatabase {
 
 
     private static final String URL = "jdbc:%s://%s:%d/%s";
 
-    DefaultRelational(Map<String, Object> config) {
+    DefaultSQLDatabase(Map<String, Object> config) {
         super(config);
     }
 

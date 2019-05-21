@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DefaultRelationalTest {
+class DefaultSQLDatabaseTest {
 
 
     @ParameterizedTest
@@ -17,7 +17,7 @@ class DefaultRelationalTest {
     public void shouldConvertService(String base64Text) {
         Map<String, List<Map<String, Object>>> map = MapConverter.toService(base64Text);
         Map<String, Object> database = map.get("database").get(0);
-        Relational service = new DefaultRelational(database);
+        SQLDatabase service = new DefaultSQLDatabase(database);
         assertEquals("rjify4yjcwxaa-master-7rqtwti", service.getCluster());
         assertEquals("mysql.internal", service.getHost());
         assertEquals("169.254.150.231", service.getIp());
@@ -38,7 +38,7 @@ class DefaultRelationalTest {
     public void shouldReturnMySQLURL(String base64Text) {
         Map<String, List<Map<String, Object>>> map = MapConverter.toService(base64Text);
         Map<String, Object> database = map.get("database").get(0);
-        Relational service = new DefaultRelational(database);
+        SQLDatabase service = new DefaultSQLDatabase(database);
         assertEquals("jdbc:mysql://mysql.internal:3306/main", service.getJDBCURL());
     }
 
@@ -47,7 +47,7 @@ class DefaultRelationalTest {
     public void shouldReturnPostgresSQLURL(String base64Text) {
         Map<String, List<Map<String, Object>>> map = MapConverter.toService(base64Text);
         Map<String, Object> database = map.get("database").get(0);
-        Relational service = new DefaultRelational(database);
+        SQLDatabase service = new DefaultSQLDatabase(database);
         assertEquals("jdbc:postgresql://postgresql.internal:5432/main", service.getJDBCURL());
     }
 }
