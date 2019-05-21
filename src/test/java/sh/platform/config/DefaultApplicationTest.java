@@ -17,6 +17,7 @@ import static sh.platform.config.PlatformVariables.PLATFORM_PROJECT;
 import static sh.platform.config.PlatformVariables.PLATFORM_ROUTES;
 import static sh.platform.config.PlatformVariables.PLATFORM_TREE_ID;
 import static sh.platform.config.PlatformVariables.PLATFORM_VARIABLES;
+import static sh.platform.config.PlatformVariables.PLATFORM_RELATIONSHIPS;
 
 class DefaultApplicationTest {
 
@@ -59,6 +60,18 @@ class DefaultApplicationTest {
         Assertions.assertEquals("value", map.get("variable"));
     }
 
+    @ParameterizedTest
+    @JSONBase64("service.json")
+    public void shouldConvertServices(String base64Text) {
+        Map<String, String> variables = getVariables();
+        variables.put(PLATFORM_RELATIONSHIPS.get(), base64Text);
+        Application application = new DefaultApplication(variables);
+        Map<String, Service> services = application.getServices();
+        Assertions.assertFalse(services.isEmpty());
+        Service database = services.get("database");
+        Assertions.assertNotNull(database);
+
+    }
     private Map<String, String> getVariables() {
         Map<String, String> variables = new HashMap<>();
         variables.put("ignore", "value");

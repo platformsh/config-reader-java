@@ -1,7 +1,6 @@
 package sh.platform.config;
 
 import java.util.Collections;
-import java.util.EnumMap;
 import java.util.Map;
 
 import static java.util.Collections.emptyMap;
@@ -12,13 +11,13 @@ import static sh.platform.config.PlatformVariables.PLATFORM_VARIABLES;
 final class DefaultApplication implements Application {
 
 
-    static final DefaultApplication INSTANCE = new DefaultApplication(System.getenv());
-
     private final Map<String, String> variables;
 
     private final Map<String, Object> routes;
 
     private final Map<PlatformVariables, String> envs;
+
+    private final Map<String, Service> services;
 
     DefaultApplication(Map<String, String> envs) {
         this.variables = ofNullable(envs.get(PLATFORM_VARIABLES.get()))
@@ -26,6 +25,7 @@ final class DefaultApplication implements Application {
         this.routes = ofNullable(envs.get(PLATFORM_ROUTES.get()))
                 .map(MapConverter::toRoute).orElse(emptyMap());
         this.envs = PlatformVariables.toMap(envs);
+        this.services = ServiceConverter.INSTAMCE.apply(envs);
 
     }
 
@@ -36,7 +36,7 @@ final class DefaultApplication implements Application {
 
     @Override
     public Map<String, Service> getServices() {
-        return Collections.emptyMap();
+        return services;
     }
 
     @Override
