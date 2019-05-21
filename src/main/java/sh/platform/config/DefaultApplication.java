@@ -11,6 +11,9 @@ import static sh.platform.config.PlatformVariables.PLATFORM_VARIABLES;
 
 final class DefaultApplication implements Application {
 
+
+    static final DefaultApplication INSTANCE = new DefaultApplication(System.getenv());
+
     private final Map<String, String> variables;
 
     private final Map<String, Object> routes;

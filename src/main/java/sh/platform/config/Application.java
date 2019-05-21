@@ -1,6 +1,9 @@
 package sh.platform.config;
 
 import java.util.Map;
+import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 public interface Application {
 
@@ -21,9 +24,15 @@ public interface Application {
     Map<String, Object> getRoutes();
 
     /**
-     *
      * @return values to {@link Map}
      */
     Map<PlatformVariables, String> toMap();
 
+    static Application get() {
+        return ApplicationSupplier.INSTANCE.get();
+    }
+
+    static Application get(Map<String, String> envs) {
+        return new DefaultApplication(requireNonNull(envs, "envs is required"));
+    }
 }
