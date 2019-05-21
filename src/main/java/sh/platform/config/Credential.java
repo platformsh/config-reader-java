@@ -1,25 +1,80 @@
 package sh.platform.config;
 
+import java.util.Collections;
 import java.util.Map;
+import java.util.Optional;
 
-//make it concrete
-public interface Credential {
+public class Credential {
 
-    String getName();
+    private final Map<String, Object> config;
 
-    String getScheme();
+    Credential(Map<String, Object> config) {
+        this.config = config;
+    }
 
-    String getIp();
+    protected Map<String, Object> getConfig() {
+        return config;
+    }
 
-    String getType();
+    public String getName() {
+        return toString("service");
+    }
 
-    int getPort();
+    public String getScheme() {
+        return toString("scheme");
+    }
 
-    String getHost();
+    public String getIp() {
+        return toString("ip");
+    }
 
-    String getCluster();
+    public String getType() {
+        return toString("type");
+    }
 
-    String getRelationship();
+    public int getPort() {
+        return toInt("port");
+    }
 
-    Map<String, Object> toMap();
+    public String getHost() {
+        return toString("host");
+    }
+
+    public String getCluster() {
+        return toString("cluster");
+    }
+
+    public Map<String, Object> toMap() {
+        return Collections.unmodifiableMap(config);
+    }
+
+    public String getRelationship() {
+        return toString("rel");
+    }
+
+
+    protected String toString(String key) {
+        return getOptionalString(key)
+                .orElseThrow(() -> new PlatformShException("Key does not found: " + key));
+    }
+
+    protected Optional<String> getOptionalString(String key) {
+        return Optional
+                .ofNullable(config.get(key))
+                .map(Object::toString);
+    }
+
+    protected Integer toInt(String key) {
+        return Optional
+                .ofNullable(config.get(key))
+                .map(Object::toString)
+                .map(Integer::parseInt)
+                .orElseThrow(() -> new PlatformShException("Key does not found: " + key));
+    }
+
+    public String toString() {
+        return "Credential{" +
+                "config=" + config +
+                '}';
+    }
 }

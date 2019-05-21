@@ -22,7 +22,7 @@ enum ServiceConverter implements Function<Map<String, String>, Map<String, Crede
         Map<String, Credential> services = new HashMap<>();
 
         for (Map.Entry<String, List<Map<String, Object>>> entry : map.entrySet()) {
-            services.put(entry.getKey(), new DefaultCredential(flat(entry.getValue())));
+            services.put(entry.getKey(), new Credential(flat(entry.getValue())));
         }
 
         return services;

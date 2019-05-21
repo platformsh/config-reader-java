@@ -9,14 +9,14 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class DefaultCredentialTest {
+class CredentialTest {
 
     @ParameterizedTest
     @JSONBase64("mysql.json")
     public void shouldConvertService(String base64Text) {
         Map<String, List<Map<String, Object>>> map = MapConverter.toService(base64Text);
         Map<String, Object> database = map.get("database").get(0);
-        Credential credential = new DefaultCredential(database);
+        Credential credential = new Credential(database);
         assertEquals("rjify4yjcwxaa-master-7rqtwti", credential.getCluster());
         assertEquals("mysql.internal", credential.getHost());
         assertEquals("169.254.150.231", credential.getIp());

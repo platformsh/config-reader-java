@@ -1,6 +1,10 @@
 package sh.platform.config;
 
-public interface Database extends Credential {
+import java.util.Map;
 
+public class Database extends Credential {
 
+    Database(Map<String, Object> config) {
+        super(config);
+    }
 }

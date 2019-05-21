@@ -6,14 +6,14 @@ import java.util.function.Supplier;
 
 import static sh.platform.config.PlatformVariables.PLATFORM_RELATIONSHIPS;
 
-enum ApplicationSupplier implements Supplier<Config> {
+enum ConfigSupplier implements Supplier<Config> {
 
     INSTANCE;
 
     {
         Map<String, String> env = new HashMap<>(System.getenv());
         env.computeIfAbsent(PLATFORM_RELATIONSHIPS.get(), (s) -> MapConverter.serviceToBase64());
-        this.config = new DefaultConfig(env);
+        this.config = new Config(env);
     }
 
     private final Config config;
