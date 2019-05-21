@@ -1,6 +1,6 @@
 package sh.platform.config;
 
-public interface Database extends Service {
+public interface Database extends Credential {
 
 
 }

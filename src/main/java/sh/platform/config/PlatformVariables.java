@@ -63,7 +63,7 @@ public enum PlatformVariables implements Supplier<String> {
     PLATFORM_SMTP_HOST,
     /**
      * A base64-encoded JSON object whose keys are the relationship name and the values are arrays of relationship
-     * endpoint definitions. See the documentation for each Service for details on each service type's schema.
+     * endpoint definitions. See the documentation for each Credential for details on each service type's schema.
      */
     PLATFORM_RELATIONSHIPS,
     /**

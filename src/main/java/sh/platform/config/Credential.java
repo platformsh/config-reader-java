@@ -2,7 +2,8 @@ package sh.platform.config;
 
 import java.util.Map;
 
-public interface Service {
+//make it concrete
+public interface Credential {
 
     String getName();
 

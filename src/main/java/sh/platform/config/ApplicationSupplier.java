@@ -6,20 +6,20 @@ import java.util.function.Supplier;
 
 import static sh.platform.config.PlatformVariables.PLATFORM_RELATIONSHIPS;
 
-enum ApplicationSupplier implements Supplier<Application> {
+enum ApplicationSupplier implements Supplier<Config> {
 
     INSTANCE;
 
     {
         Map<String, String> env = new HashMap<>(System.getenv());
         env.computeIfAbsent(PLATFORM_RELATIONSHIPS.get(), (s) -> MapConverter.serviceToBase64());
-        this.application = new DefaultApplication(env);
+        this.config = new DefaultConfig(env);
     }
 
-    private final Application application;
+    private final Config config;
 
     @Override
-    public Application get() {
-        return application;
+    public Config get() {
+        return config;
     }
 }

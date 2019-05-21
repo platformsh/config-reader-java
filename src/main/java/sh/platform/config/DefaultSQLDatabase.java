@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-final class DefaultSQLDatabase extends DefaultService implements SQLDatabase {
+final class DefaultSQLDatabase extends DefaultCredential implements SQLDatabase {
 
 
     private static final String URL = "jdbc:%s://%s:%d/%s";

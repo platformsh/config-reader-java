@@ -4,7 +4,7 @@ import java.util.Map;
 
 import static java.util.Objects.requireNonNull;
 
-public interface Application {
+public interface Config {
 
     /**
      * @return object which keys are variables names and values are variable values from the the: PLATFORM_VARIABLES
@@ -15,7 +15,7 @@ public interface Application {
     /**
      * @return the available services
      */
-    Map<String, Service> getServices();
+    Map<String, Credential> getCredentials();
 
     /**
      * @return describes the routes
@@ -27,11 +27,11 @@ public interface Application {
      */
     Map<PlatformVariables, String> toMap();
 
-    static Application get() {
+    static Config get() {
         return ApplicationSupplier.INSTANCE.get();
     }
 
-    static Application get(Map<String, String> envs) {
-        return new DefaultApplication(requireNonNull(envs, "envs is required"));
+    static Config get(Map<String, String> envs) {
+        return new DefaultConfig(requireNonNull(envs, "envs is required"));
     }
 }

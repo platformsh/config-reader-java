@@ -8,7 +8,7 @@ import static java.util.Optional.ofNullable;
 import static sh.platform.config.PlatformVariables.PLATFORM_ROUTES;
 import static sh.platform.config.PlatformVariables.PLATFORM_VARIABLES;
 
-final class DefaultApplication implements Application {
+final class DefaultConfig implements Config {
 
 
     private final Map<String, String> variables;
@@ -17,9 +17,9 @@ final class DefaultApplication implements Application {
 
     private final Map<PlatformVariables, String> envs;
 
-    private final Map<String, Service> services;
+    private final Map<String, Credential> services;
 
-    DefaultApplication(Map<String, String> envs) {
+    DefaultConfig(Map<String, String> envs) {
         this.variables = ofNullable(envs.get(PLATFORM_VARIABLES.get()))
                 .map(MapConverter::toVariable).orElse(emptyMap());
         this.routes = ofNullable(envs.get(PLATFORM_ROUTES.get()))
@@ -35,7 +35,7 @@ final class DefaultApplication implements Application {
     }
 
     @Override
-    public Map<String, Service> getServices() {
+    public Map<String, Credential> getCredentials() {
         return services;
     }
 

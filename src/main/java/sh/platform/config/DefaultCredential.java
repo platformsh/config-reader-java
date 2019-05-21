@@ -4,11 +4,11 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
-class DefaultService implements Service {
+class DefaultCredential implements Credential {
 
     private final Map<String, Object> config;
 
-    DefaultService(Map<String, Object> config) {
+    DefaultCredential(Map<String, Object> config) {
         this.config = config;
     }
 
@@ -83,7 +83,7 @@ class DefaultService implements Service {
 
     @Override
     public String toString() {
-        return "Service{" +
+        return "Credential{" +
                 "config=" + config +
                 '}';
     }

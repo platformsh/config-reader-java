@@ -19,20 +19,20 @@ import static sh.platform.config.PlatformVariables.PLATFORM_ROUTES;
 import static sh.platform.config.PlatformVariables.PLATFORM_TREE_ID;
 import static sh.platform.config.PlatformVariables.PLATFORM_VARIABLES;
 
-class DefaultApplicationTest {
+class DefaultConfigTest {
 
 
     @Test
     public void shouldReturnVariable() {
         Map<String, String> variables = getVariables();
-        Application application = new DefaultApplication(variables);
-        Map<PlatformVariables, String> map = application.toMap();
+        Config config = new DefaultConfig(variables);
+        Map<PlatformVariables, String> map = config.toMap();
         assertEquals("dir", map.get(PLATFORM_APP_DIR));
         assertEquals("project", map.get(PLATFORM_PROJECT));
         assertEquals("tree", map.get(PLATFORM_TREE_ID));
         assertEquals("name", map.get(PLATFORM_APPLICATION_NAME));
-        assertTrue(application.getRoutes().isEmpty());
-        assertTrue(application.getServices().isEmpty());
+        assertTrue(config.getRoutes().isEmpty());
+        assertTrue(config.getCredentials().isEmpty());
     }
 
     @ParameterizedTest
@@ -40,8 +40,8 @@ class DefaultApplicationTest {
     public void shouldConvertRoutes(String base64Text) {
         Map<String, String> variables = getVariables();
         variables.put(PLATFORM_ROUTES.get(), base64Text);
-        Application application = new DefaultApplication(variables);
-        Map<String, Object> routes = application.getRoutes();
+        Config config = new DefaultConfig(variables);
+        Map<String, Object> routes = config.getRoutes();
         assertNotNull(routes);
         Map<String, Object> host = (Map<String, Object>) routes.get("http://host.com/");
         Assertions.assertEquals(true, host.get("restrict_robots"));
@@ -54,8 +54,8 @@ class DefaultApplicationTest {
     public void shouldConvertVariables(String base64Text) {
         Map<String, String> variables = getVariables();
         variables.put(PLATFORM_VARIABLES.get(), base64Text);
-        Application application = new DefaultApplication(variables);
-        Map<String, String> map = application.getVariables();
+        Config config = new DefaultConfig(variables);
+        Map<String, String> map = config.getVariables();
         Assertions.assertEquals("8", map.get("java.version"));
         Assertions.assertEquals("value", map.get("variable"));
     }
@@ -65,10 +65,10 @@ class DefaultApplicationTest {
     public void shouldConvertServices(String base64Text) {
         Map<String, String> variables = getVariables();
         variables.put(PLATFORM_RELATIONSHIPS.get(), base64Text);
-        Application application = new DefaultApplication(variables);
-        Map<String, Service> services = application.getServices();
+        Config config = new DefaultConfig(variables);
+        Map<String, Credential> services = config.getCredentials();
         Assertions.assertFalse(services.isEmpty());
-        Service database = services.get("database");
+        Credential database = services.get("database");
         assertNotNull(database);
 
     }

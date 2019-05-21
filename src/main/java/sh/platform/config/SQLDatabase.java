@@ -21,8 +21,8 @@ public interface SQLDatabase extends Database {
 
 
     static SQLDatabase get(String name) {
-        Application application = Application.get();
-        Service service = application.getServices().get(name);
-        return new DefaultSQLDatabase(service.toMap());
+        Config config = Config.get();
+        Credential credential = config.getCredentials().get(name);
+        return new DefaultSQLDatabase(credential.toMap());
     }
 }

@@ -10,19 +10,19 @@ import static java.util.Collections.emptyMap;
 import static java.util.Optional.ofNullable;
 import static sh.platform.config.PlatformVariables.PLATFORM_RELATIONSHIPS;
 
-enum ServiceConverter implements Function<Map<String, String>, Map<String, Service>> {
+enum ServiceConverter implements Function<Map<String, String>, Map<String, Credential>> {
 
     INSTANCE;
 
     @Override
-    public Map<String, Service> apply(Map<String, String> envs) {
+    public Map<String, Credential> apply(Map<String, String> envs) {
         Map<String, List<Map<String, Object>>> map = ofNullable(envs.get(PLATFORM_RELATIONSHIPS.get()))
                 .map(MapConverter::toService).orElse(emptyMap());
 
-        Map<String, Service> services = new HashMap<>();
+        Map<String, Credential> services = new HashMap<>();
 
         for (Map.Entry<String, List<Map<String, Object>>> entry : map.entrySet()) {
-            services.put(entry.getKey(), new DefaultService(flat(entry.getValue())));
+            services.put(entry.getKey(), new DefaultCredential(flat(entry.getValue())));
         }
 
         return services;
