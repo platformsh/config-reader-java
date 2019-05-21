@@ -1,7 +1,9 @@
 package sh.platform.config;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 final class DefaultRelational extends DefaultService implements Relational {
 
@@ -28,7 +30,13 @@ final class DefaultRelational extends DefaultService implements Relational {
     @Override
     public Map<String, String> getQuery() {
         Map<String, Object> config = getConfig();
-        return (Map<String, String>) config.get("query");
+        Map<String, Object> query = (Map<String, Object>) config.get("query");
+        if (query == null) {
+            return Collections.emptyMap();
+        }
+        return query.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey,
+                        e -> e.getValue().toString()));
     }
 
     @Override
