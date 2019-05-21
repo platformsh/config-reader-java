@@ -10,6 +10,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static sh.platform.config.PlatformVariables.PLATFORM_APPLICATION_NAME;
 import static sh.platform.config.PlatformVariables.PLATFORM_APP_DIR;
 import static sh.platform.config.PlatformVariables.PLATFORM_PROJECT;
@@ -29,8 +30,8 @@ class DefaultApplicationTest {
         assertEquals("project", map.get(PLATFORM_PROJECT));
         assertEquals("tree", map.get(PLATFORM_TREE_ID));
         assertEquals("name", map.get(PLATFORM_APPLICATION_NAME));
-        Assertions.assertTrue(application.getRoutes().isEmpty());
-        Assertions.assertTrue(application.getServices().isEmpty());
+        assertTrue(application.getRoutes().isEmpty());
+        assertTrue(application.getServices().isEmpty());
     }
 
     @ParameterizedTest
