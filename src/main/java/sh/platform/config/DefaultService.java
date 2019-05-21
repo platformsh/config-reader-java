@@ -70,7 +70,7 @@ class DefaultService implements Service {
     protected Optional<String> getOptionalString(String key) {
         return Optional
                 .ofNullable(config.get(key))
-                .map(o -> o.toString());
+                .map(Object::toString);
     }
 
     protected Integer toInt(String key) {

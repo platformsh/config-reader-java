@@ -20,10 +20,9 @@ public class ProviderTest {
     @JSONBase64("service.json")
     public void test(String base64Text) {
         Assertions.assertNotNull(base64Text);
-        String relationship = base64Text;
         Type type = new HashMap<String, List<Map<String, Object>>>() {
         }.getClass().getGenericSuperclass();
-        String text = new String(Base64.getDecoder().decode(relationship), UTF_8);
+        String text = new String(Base64.getDecoder().decode(base64Text), UTF_8);
 
         Jsonb jsonb = JsonbBuilder.create();
         Map<String, List<Map<String, Object>>> json = jsonb.fromJson(text, type);
