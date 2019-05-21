@@ -10,12 +10,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
-import java.util.Map;
 import java.util.stream.Stream;
 
 import static java.nio.file.Files.readAllBytes;
-import static java.util.Collections.singletonMap;
-import static sh.platform.config.PlatformVariables.PLATFORM_RELATIONSHIPS;
 
 public class JSONBase64Provider implements ArgumentsProvider, AnnotationConsumer<JSONBase64> {
 
@@ -31,7 +28,6 @@ public class JSONBase64Provider implements ArgumentsProvider, AnnotationConsumer
         URL url = JSONBase64Provider.class.getClassLoader().getResource(file);
         Path path = Paths.get(url.toURI());
         byte[] encode = Base64.getEncoder().encode(readAllBytes(path));
-        Map<String, String> map = singletonMap(PLATFORM_RELATIONSHIPS.name(), new String(encode, StandardCharsets.UTF_8));
-        return Stream.of(Arguments.of(map));
+        return Stream.of(Arguments.of(new String(encode, StandardCharsets.UTF_8)));
     }
 }

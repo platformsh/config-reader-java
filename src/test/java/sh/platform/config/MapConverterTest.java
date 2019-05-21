@@ -1,5 +1,6 @@
 package sh.platform.config;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import sh.platform.config.provider.JSONBase64;
 
@@ -14,9 +15,8 @@ class MapConverterTest {
 
     @ParameterizedTest
     @JSONBase64("service.json")
-    public void shouldConvert(Map<String, String> map) {
-        String relationship = map.get(PlatformVariables.PLATFORM_RELATIONSHIPS.get());
-        Map<String, List<Map<String, Object>>> service = MapConverter.toService(relationship);
+    public void shouldConvertService(String base64Text) {
+        Map<String, List<Map<String, Object>>> service = MapConverter.toService(base64Text);
         assertNotNull(service);
 
         Map<String, Object> database = service.get("database").get(0);
@@ -30,5 +30,18 @@ class MapConverterTest {
         Map<String, Object> redis = service.get("redis").get(0);
         assertEquals("redis.internal", redis.get("host"));
         assertEquals("246.0.97.88", redis.get("ip"));
+    }
+
+    @ParameterizedTest
+    @JSONBase64("routes.json")
+    public void shouldConvertRoutes(String base64Text) {
+        Map<String, Object> routes = MapConverter.toRoute(base64Text);
+        Assertions.assertNotNull(routes);
+        Map<String, Object> host = (Map<String, Object>) routes.get("http://host.com/");
+        Assertions.assertEquals(true, host.get("restrict_robots"));
+        Assertions.assertEquals("http://{default}/", host.get("original_url"));
+        Assertions.assertEquals(false, host.get("primary"));
+
+
     }
 }
