@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 final class DefaultRelational extends DefaultService implements Relational {
 
 
+    private static final String URL = "jdbc:%s://%s:%d/%s";
+
     DefaultRelational(Map<String, Object> config) {
         super(config);
     }
@@ -47,5 +49,10 @@ final class DefaultRelational extends DefaultService implements Relational {
     @Override
     public String getPassword() {
         return toString("password");
+    }
+
+    @Override
+    public String getJDBCURL() {
+        return String.format(URL, getName(), getHost(), getPort(), getPath());
     }
 }

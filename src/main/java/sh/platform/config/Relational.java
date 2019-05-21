@@ -16,4 +16,6 @@ public interface Relational extends Database {
     String getPath();
 
     String getPassword();
+
+    String getJDBCURL();
 }

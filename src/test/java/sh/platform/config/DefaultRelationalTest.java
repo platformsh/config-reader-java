@@ -32,4 +32,22 @@ class DefaultRelationalTest {
         assertEquals("", service.getPassword());
         assertEquals(Collections.singletonMap("is_master", "true"), service.getQuery());
     }
+
+    @ParameterizedTest
+    @JSONBase64("mysql.json")
+    public void shouldReturnMySQLURL(String base64Text) {
+        Map<String, List<Map<String, Object>>> map = MapConverter.toService(base64Text);
+        Map<String, Object> database = map.get("database").get(0);
+        Relational service = new DefaultRelational(database);
+        assertEquals("jdbc:mysql://mysql.internal:3306/main", service.getJDBCURL());
+    }
+
+    @ParameterizedTest
+    @JSONBase64("postgre.json")
+    public void shouldReturnPostgresSQLURL(String base64Text) {
+        Map<String, List<Map<String, Object>>> map = MapConverter.toService(base64Text);
+        Map<String, Object> database = map.get("database").get(0);
+        Relational service = new DefaultRelational(database);
+        assertEquals("jdbc:postgresql://postgresql.internal:5432/main", service.getJDBCURL());
+    }
 }
