@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
-class DefaultService implements Service{
+class DefaultService implements Service {
 
     private final Map<String, Object> config;
 
@@ -64,7 +64,7 @@ class DefaultService implements Service{
 
     protected String toString(String key) {
         return getOptionalString(key)
-                .orElseThrow(()-> new PlatformShException("Key does not found: " + key));
+                .orElseThrow(() -> new PlatformShException("Key does not found: " + key));
     }
 
     protected Optional<String> getOptionalString(String key) {
@@ -78,6 +78,14 @@ class DefaultService implements Service{
                 .ofNullable(config.get(key))
                 .map(Object::toString)
                 .map(Integer::parseInt)
-                .orElseThrow(()-> new PlatformShException("Key does not found: " + key));
+                .orElseThrow(() -> new PlatformShException("Key does not found: " + key));
     }
+
+    @Override
+    public String toString() {
+        return "Service{" +
+                "config=" + config +
+                '}';
+    }
+
 }

@@ -18,7 +18,7 @@ public interface Service {
 
     String getCluster();
 
-    Map<String, Object> toMap();
-
     String getRelationship();
+
+    Map<String, Object> toMap();
 }

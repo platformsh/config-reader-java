@@ -25,6 +25,17 @@ public interface Application {
     /**
      * @return the available services
      */
-    List<Service> getServices();
+    Map<String, Service> getServices();
+
+    /**
+     * @return describes the routes
+     */
+    Map<String, Object> getRoutes();
+
+    /**
+     *
+     * @return values to {@link Map}
+     */
+    Map<PlatformVariables, Object> toMap();
 
 }
