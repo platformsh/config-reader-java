@@ -33,7 +33,7 @@ final class DefaultApplication implements Application {
 
     @Override
     public Map<String, Service> getServices() {
-        return null;
+        return Collections.emptyMap();
     }
 
     @Override
