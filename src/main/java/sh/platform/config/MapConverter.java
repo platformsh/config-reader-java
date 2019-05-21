@@ -17,6 +17,9 @@ final class MapConverter  {
     private static final Type ROUTE = new HashMap<String, Object>() {
     }.getClass().getGenericSuperclass();
 
+    private static final Type VARIABLES = new HashMap<String, String>() {
+    }.getClass().getGenericSuperclass();
+
     private static final Jsonb JSONB = JsonbBuilder.create();
 
     private MapConverter() {
@@ -25,5 +28,15 @@ final class MapConverter  {
     static Map<String, List<Map<String, Object>>> toService(String relationship){
         String text = new String(Base64.getDecoder().decode(relationship), UTF_8);
         return JSONB.fromJson(text, SERVICE);
+    }
+
+    static Map<String, Object> toRoute(String routes){
+        String text = new String(Base64.getDecoder().decode(routes), UTF_8);
+        return JSONB.fromJson(text, ROUTE);
+    }
+
+    static Map<String, String> toVariable(String variable){
+        String text = new String(Base64.getDecoder().decode(variable), UTF_8);
+        return JSONB.fromJson(text, VARIABLES);
     }
 }

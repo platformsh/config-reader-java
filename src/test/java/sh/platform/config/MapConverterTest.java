@@ -7,13 +7,14 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class MapConverterTest {
 
     @ParameterizedTest
     @JSONBase64("service.json")
-    public void test(Map<String, String> map) {
+    public void shouldConvert(Map<String, String> map) {
         String relationship = map.get(PlatformVariables.PLATFORM_RELATIONSHIPS.get());
         Map<String, List<Map<String, Object>>> service = MapConverter.toService(relationship);
         assertNotNull(service);

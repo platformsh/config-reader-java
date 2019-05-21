@@ -1,5 +1,7 @@
 package sh.platform.config;
 
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.function.Supplier;
 
 /**
@@ -73,5 +75,18 @@ public enum PlatformVariables implements Supplier<String> {
     @Override
     public String get() {
         return this.name();
+    }
+
+    static Map<PlatformVariables, String> toMap(Map<String, String> envs) {
+        Map<PlatformVariables, String> map = new EnumMap<>(PlatformVariables.class);
+
+        for (PlatformVariables variable : PlatformVariables.values()) {
+            String value = envs.get(variable.get());
+            if (value != null) {
+                map.put(variable, value);
+            }
+        }
+
+        return map;
     }
 }
