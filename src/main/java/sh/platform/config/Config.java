@@ -2,6 +2,7 @@ package sh.platform.config;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 import static java.util.Collections.emptyMap;
@@ -26,7 +27,7 @@ public class Config {
 
     private final Map<PlatformVariables, String> envs;
 
-    private final Map<String, Credential> services;
+    private final Map<String, Credential> credentials;
 
     Config(Map<String, String> envs) {
         this.variables = ofNullable(envs.get(PLATFORM_VARIABLES.get()))
@@ -34,7 +35,7 @@ public class Config {
         this.routes = ofNullable(envs.get(PLATFORM_ROUTES.get()))
                 .map(MapConverter::toRoute).orElse(emptyMap());
         this.envs = PlatformVariables.toMap(envs);
-        this.services = ServiceConverter.INSTANCE.apply(envs);
+        this.credentials = ServiceConverter.INSTANCE.apply(envs);
 
     }
 
@@ -47,10 +48,10 @@ public class Config {
     }
 
     /**
-     * @return the available services
+     * @return the available credentials
      */
     public Map<String, Credential> getCredentials() {
-        return services;
+        return credentials;
     }
 
     /**
@@ -131,6 +132,33 @@ public class Config {
     public Map<PlatformVariables, String> toMap() {
         return Collections.unmodifiableMap(envs);
     }
+
+
+    /**
+     * A credential from a key
+     *
+     * @param key the key
+     * @return a credential from the key
+     */
+    public Optional<Credential> getCredential(String key) {
+        Objects.requireNonNull(key, "key is required");
+        return Optional.ofNullable(credentials.get(key));
+    }
+
+    /**
+     * A credential from a key
+     *
+     * @param key the key
+     * @return a credential from the key
+     */
+    public <T> Optional<T> getCredential(String key, CredentialFormatter<T> formatter) {
+        Objects.requireNonNull(key, "key is required");
+        Objects.requireNonNull(formatter, "formatter is required");
+        return Optional.ofNullable(credentials.get(key))
+                .map(Credential::toMap)
+                .map(formatter::apply);
+    }
+
 
     /**
      * @return a {@link Config} instance
