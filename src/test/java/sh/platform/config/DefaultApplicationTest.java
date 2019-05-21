@@ -14,10 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static sh.platform.config.PlatformVariables.PLATFORM_APPLICATION_NAME;
 import static sh.platform.config.PlatformVariables.PLATFORM_APP_DIR;
 import static sh.platform.config.PlatformVariables.PLATFORM_PROJECT;
+import static sh.platform.config.PlatformVariables.PLATFORM_RELATIONSHIPS;
 import static sh.platform.config.PlatformVariables.PLATFORM_ROUTES;
 import static sh.platform.config.PlatformVariables.PLATFORM_TREE_ID;
 import static sh.platform.config.PlatformVariables.PLATFORM_VARIABLES;
-import static sh.platform.config.PlatformVariables.PLATFORM_RELATIONSHIPS;
 
 class DefaultApplicationTest {
 
@@ -69,7 +69,7 @@ class DefaultApplicationTest {
         Map<String, Service> services = application.getServices();
         Assertions.assertFalse(services.isEmpty());
         Service database = services.get("database");
-        Assertions.assertNotNull(database);
+        assertNotNull(database);
 
     }
     private Map<String, String> getVariables() {

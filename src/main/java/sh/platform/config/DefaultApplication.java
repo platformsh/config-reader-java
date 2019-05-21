@@ -25,7 +25,7 @@ final class DefaultApplication implements Application {
         this.routes = ofNullable(envs.get(PLATFORM_ROUTES.get()))
                 .map(MapConverter::toRoute).orElse(emptyMap());
         this.envs = PlatformVariables.toMap(envs);
-        this.services = ServiceConverter.INSTAMCE.apply(envs);
+        this.services = ServiceConverter.INSTANCE.apply(envs);
 
     }
 

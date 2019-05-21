@@ -8,7 +8,7 @@ import java.util.function.Function;
 
 import static java.util.Collections.emptyMap;
 import static java.util.Optional.ofNullable;
-import static sh.platform.config.PlatformVariables.PLATFORM_ROUTES;
+import static sh.platform.config.PlatformVariables.PLATFORM_RELATIONSHIPS;
 
 enum ServiceConverter implements Function<Map<String, String>, Map<String, Service>> {
 
@@ -16,7 +16,7 @@ enum ServiceConverter implements Function<Map<String, String>, Map<String, Servi
 
     @Override
     public Map<String, Service> apply(Map<String, String> envs) {
-        Map<String, List<Map<String, Object>>> map = ofNullable(envs.get(PLATFORM_ROUTES.get()))
+        Map<String, List<Map<String, Object>>> map = ofNullable(envs.get(PLATFORM_RELATIONSHIPS.get()))
                 .map(MapConverter::toService).orElse(emptyMap());
 
         Map<String, Service> services = new HashMap<>();
