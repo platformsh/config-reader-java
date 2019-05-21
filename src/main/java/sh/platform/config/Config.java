@@ -2,10 +2,20 @@ package sh.platform.config;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.Optional;
 
 import static java.util.Collections.emptyMap;
 import static java.util.Optional.ofNullable;
+import static sh.platform.config.PlatformVariables.PLATFORM_APPLICATION_NAME;
+import static sh.platform.config.PlatformVariables.PLATFORM_APP_DIR;
+import static sh.platform.config.PlatformVariables.PLATFORM_BRANCH;
+import static sh.platform.config.PlatformVariables.PLATFORM_DOCUMENT_ROOT;
+import static sh.platform.config.PlatformVariables.PLATFORM_ENVIRONMENT;
+import static sh.platform.config.PlatformVariables.PLATFORM_PROJECT;
+import static sh.platform.config.PlatformVariables.PLATFORM_PROJECT_ENTROPY;
 import static sh.platform.config.PlatformVariables.PLATFORM_ROUTES;
+import static sh.platform.config.PlatformVariables.PLATFORM_SMTP_HOST;
+import static sh.platform.config.PlatformVariables.PLATFORM_TREE_ID;
 import static sh.platform.config.PlatformVariables.PLATFORM_VARIABLES;
 
 public class Config {
@@ -50,6 +60,71 @@ public class Config {
         return Collections.unmodifiableMap(routes);
     }
 
+
+    /**
+     * @return @{@link PlatformVariables#PLATFORM_APPLICATION_NAME}
+     */
+    public String getApplicationName() {
+        return toString(PLATFORM_APPLICATION_NAME);
+    }
+
+    /**
+     * @return @{@link PlatformVariables#PLATFORM_APP_DIR}
+     */
+    public String getAppDir() {
+        return toString(PLATFORM_APP_DIR);
+    }
+
+    /**
+     * @return @{@link PlatformVariables#PLATFORM_PROJECT}
+     */
+    public String getProject() {
+        return toString(PLATFORM_PROJECT);
+    }
+
+    /**
+     * @return @{@link PlatformVariables#PLATFORM_TREE_ID}
+     */
+    public String getTreeID() {
+        return toString(PLATFORM_TREE_ID);
+    }
+
+    /**
+     * @return @{@link PlatformVariables#PLATFORM_PROJECT_ENTROPY}
+     */
+    public String getProjectEntropy() {
+        return toString(PLATFORM_PROJECT_ENTROPY);
+    }
+
+    /**
+     * @return @{@link PlatformVariables#PLATFORM_BRANCH}
+     */
+    public String getBranch() {
+        return toString(PLATFORM_BRANCH);
+    }
+
+    /**
+     * @return @{@link PlatformVariables#PLATFORM_DOCUMENT_ROOT}
+     */
+    public String getDocumentRoot() {
+        return toString(PLATFORM_DOCUMENT_ROOT);
+    }
+
+    /**
+     * @return @{@link PlatformVariables#PLATFORM_SMTP_HOST}
+     */
+    public String getSmtpHost() {
+        return toString(PLATFORM_SMTP_HOST);
+    }
+
+    /**
+     * @return @{@link PlatformVariables#PLATFORM_ENVIRONMENT}
+     */
+    public String getEnvironment() {
+        return toString(PLATFORM_ENVIRONMENT);
+    }
+
+
     /**
      * @return values to {@link Map}
      */
@@ -62,5 +137,12 @@ public class Config {
      */
     public static Config get() {
         return ConfigSupplier.INSTANCE.get();
+    }
+
+    private String toString(PlatformVariables variable) {
+        return Optional
+                .ofNullable(variables.get(variable.get()))
+                .map(Object::toString)
+                .orElseThrow(() -> new PlatformShException("Variable does not exist on environment: " + variable.get()));
     }
 }

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>sh.platform</groupId>
-    <artifactId>config</artifactId>
+    <artifactId>config-reader</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <name>config</name>
