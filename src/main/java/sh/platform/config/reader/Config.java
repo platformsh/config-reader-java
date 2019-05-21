@@ -1,4 +1,4 @@
-package sh.platform.config;
+package sh.platform.config.reader;
 
 import java.util.Collections;
 import java.util.Map;
@@ -7,17 +7,17 @@ import java.util.Optional;
 
 import static java.util.Collections.emptyMap;
 import static java.util.Optional.ofNullable;
-import static sh.platform.config.PlatformVariables.PLATFORM_APPLICATION_NAME;
-import static sh.platform.config.PlatformVariables.PLATFORM_APP_DIR;
-import static sh.platform.config.PlatformVariables.PLATFORM_BRANCH;
-import static sh.platform.config.PlatformVariables.PLATFORM_DOCUMENT_ROOT;
-import static sh.platform.config.PlatformVariables.PLATFORM_ENVIRONMENT;
-import static sh.platform.config.PlatformVariables.PLATFORM_PROJECT;
-import static sh.platform.config.PlatformVariables.PLATFORM_PROJECT_ENTROPY;
-import static sh.platform.config.PlatformVariables.PLATFORM_ROUTES;
-import static sh.platform.config.PlatformVariables.PLATFORM_SMTP_HOST;
-import static sh.platform.config.PlatformVariables.PLATFORM_TREE_ID;
-import static sh.platform.config.PlatformVariables.PLATFORM_VARIABLES;
+import static sh.platform.config.reader.PlatformVariables.PLATFORM_APPLICATION_NAME;
+import static sh.platform.config.reader.PlatformVariables.PLATFORM_APP_DIR;
+import static sh.platform.config.reader.PlatformVariables.PLATFORM_BRANCH;
+import static sh.platform.config.reader.PlatformVariables.PLATFORM_DOCUMENT_ROOT;
+import static sh.platform.config.reader.PlatformVariables.PLATFORM_ENVIRONMENT;
+import static sh.platform.config.reader.PlatformVariables.PLATFORM_PROJECT;
+import static sh.platform.config.reader.PlatformVariables.PLATFORM_PROJECT_ENTROPY;
+import static sh.platform.config.reader.PlatformVariables.PLATFORM_ROUTES;
+import static sh.platform.config.reader.PlatformVariables.PLATFORM_SMTP_HOST;
+import static sh.platform.config.reader.PlatformVariables.PLATFORM_TREE_ID;
+import static sh.platform.config.reader.PlatformVariables.PLATFORM_VARIABLES;
 
 public class Config {
 

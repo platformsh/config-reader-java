@@ -1,9 +1,9 @@
-package sh.platform.config;
+package sh.platform.config.reader;
 
 import java.util.Map;
 import java.util.Objects;
 
-public class SQLDatabaseCredentialFormatter implements CredentialFormatter<SQLDatabase> {
+public class SQLDatabaseFormatter implements CredentialFormatter<SQLDatabase> {
 
     @Override
     public SQLDatabase apply(Map<String, Object> map) {

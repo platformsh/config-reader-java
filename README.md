@@ -14,7 +14,7 @@ This library requires Java 8 or later.
 ```xml
 <dependency>
     <groupId>sh.platform</groupId>
-    <artifactId>config</artifactId>
+    <artifactId>config-reader</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 </dependency>
 ```
@@ -22,7 +22,7 @@ This library requires Java 8 or later.
 ### Gradle 
 
 ```xml
-compile group: 'sh.platform', name: 'config', version: '0.0.1-SNAPSHOT'
+compile group: 'sh.platform', name: 'config-reader', version: '0.0.1-SNAPSHOT'
 
 ```
 
@@ -31,7 +31,7 @@ compile group: 'sh.platform', name: 'config', version: '0.0.1-SNAPSHOT'
 Example:
 
 ```python
-import sh.platform.config.Config;
+import Config;
 
 Config config = Config.get();
 ```
@@ -41,7 +41,7 @@ Config config = Config.get();
 ### Create a config object
 
 ```java
-import sh.platform.config.Config;
+import sh.platform.config.reader.Config;
 
 Config config = Config.get();
 ```
@@ -112,7 +112,7 @@ The type of `formatted` will depend on the formatter function and can be safely 
 
 Three formatters are included out of the box:
 
-* `SQLDatabaseCredentialFormatter` returns format to SQL technology such as PostgreSQL and MySQL.
+* `SQLDatabaseFormatter` returns format to SQL technology such as PostgreSQL and MySQL.
 
 ### Reading Platform.sh variables
 

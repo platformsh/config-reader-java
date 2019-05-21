@@ -1,10 +1,10 @@
-package sh.platform.config;
+package sh.platform.config.reader;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-import static sh.platform.config.PlatformVariables.PLATFORM_RELATIONSHIPS;
+import static sh.platform.config.reader.PlatformVariables.PLATFORM_RELATIONSHIPS;
 
 enum ConfigSupplier implements Supplier<Config> {
 

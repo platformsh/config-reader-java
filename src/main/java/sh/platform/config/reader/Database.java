@@ -1,4 +1,4 @@
-package sh.platform.config;
+package sh.platform.config.reader;
 
 import java.util.Map;
 

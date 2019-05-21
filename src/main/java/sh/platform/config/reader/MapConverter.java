@@ -1,4 +1,4 @@
-package sh.platform.config;
+package sh.platform.config.reader;
 
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;

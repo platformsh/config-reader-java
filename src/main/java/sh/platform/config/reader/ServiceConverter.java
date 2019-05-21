@@ -1,4 +1,4 @@
-package sh.platform.config;
+package sh.platform.config.reader;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,7 +8,6 @@ import java.util.function.Function;
 
 import static java.util.Collections.emptyMap;
 import static java.util.Optional.ofNullable;
-import static sh.platform.config.PlatformVariables.PLATFORM_RELATIONSHIPS;
 
 enum ServiceConverter implements Function<Map<String, String>, Map<String, Credential>> {
 
@@ -16,7 +15,7 @@ enum ServiceConverter implements Function<Map<String, String>, Map<String, Crede
 
     @Override
     public Map<String, Credential> apply(Map<String, String> envs) {
-        Map<String, List<Map<String, Object>>> map = ofNullable(envs.get(PLATFORM_RELATIONSHIPS.get()))
+        Map<String, List<Map<String, Object>>> map = ofNullable(envs.get(PlatformVariables.PLATFORM_RELATIONSHIPS.get()))
                 .map(MapConverter::toService).orElse(emptyMap());
 
         Map<String, Credential> services = new HashMap<>();

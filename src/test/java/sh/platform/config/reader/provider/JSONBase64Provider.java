@@ -1,4 +1,4 @@
-package sh.platform.config.provider;
+package sh.platform.config.reader.provider;
 
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;
