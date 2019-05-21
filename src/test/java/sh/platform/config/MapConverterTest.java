@@ -38,9 +38,9 @@ class MapConverterTest {
         Map<String, Object> routes = MapConverter.toRoute(base64Text);
         Assertions.assertNotNull(routes);
         Map<String, Object> host = (Map<String, Object>) routes.get("http://host.com/");
-        Assertions.assertEquals(true, host.get("restrict_robots"));
-        Assertions.assertEquals("http://{default}/", host.get("original_url"));
-        Assertions.assertEquals(false, host.get("primary"));
+        assertEquals(true, host.get("restrict_robots"));
+        assertEquals("http://{default}/", host.get("original_url"));
+        assertEquals(false, host.get("primary"));
 
 
     }
