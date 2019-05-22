@@ -90,7 +90,7 @@ A Credential Formatter is a functional interface that takes a credentials array 
 
 
 Config config = Config.get();
-CustomCredentials credentials = config.getCredential("key", CustomCredentials::new);
+CustomCredential credential = config.getCredential("key", CustomCredential::new);
 
 ```
 
