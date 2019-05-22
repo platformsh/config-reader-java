@@ -90,8 +90,7 @@ A Credential Formatter is a functional interface that takes a credentials array 
 
 
 Config config = Config.get();
-CredentialFormatter<CustomCredentials> formatter = CustomCredentials::new;
-CustomCredentials credentials = config.getCredential("key", formatter);
+CustomCredentials credentials = config.getCredential("key", CustomCredentials::new);
 
 ```
 
@@ -102,7 +101,7 @@ The type of `formatted` will depend on the formatter function and can be safely 
 
 Three formatters are included out of the box:
 
-* `SQLDatabaseFormatter` returns format to SQL technology such as PostgreSQL and MySQL.
+* `SQLDatabase` returns format to SQL technology such as PostgreSQL and MySQL.
 
 ### Reading Platform.sh variables
 

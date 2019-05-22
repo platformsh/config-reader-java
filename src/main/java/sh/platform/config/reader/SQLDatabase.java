@@ -2,6 +2,7 @@ package sh.platform.config.reader;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -13,8 +14,8 @@ public class SQLDatabase extends Database {
 
     private static final String URL = "jdbc:%s://%s:%d/%s";
 
-    SQLDatabase(Map<String, Object> config) {
-        super(config);
+    public SQLDatabase(Map<String, Object> config) {
+        super(Objects.requireNonNull(config, "config is required"));
     }
 
     public String getUserName() {
