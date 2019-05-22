@@ -26,15 +26,6 @@ compile group: 'sh.platform', name: 'config-reader', version: '0.0.1-SNAPSHOT'
 
 ```
 
-## Usage Example
-
-Example:
-
-```python
-import Config;
-
-Config config = Config.get();
-```
 
 ## API Reference
 
@@ -92,9 +83,8 @@ The return value of `getCredentials()` is a dictionary matching the relationship
 
 ## Formatting service credentials
 
-In some cases the library being used to connect to a service wants its credentials formatted in a specific way; it could be a DSN string of some sort or it needs certain values concatenated to the database name, etc.  For those cases you can use "Credential Formatters".  A Credential Formatter is any `callable` (function, anonymous function, object method, etc.) that takes a credentials array and returns any type, since the library may want different types.
-
-Credential Formatters can be registered on the configuration object, and a few are included out of the box.  That allows 3rd party libraries to ship their own formatters that can be easily integrated into the `Config` object to allow easier use.
+In some cases the library being used to connect to a service wants its credentials formatted in a specific way; it could be a DSN string of some sort or it needs certain values concatenated to the database name, etc.  For those cases you can use "Credential Formatters".  
+A Credential Formatter is a functional interface that takes a credentials array and returns any type, since the library may want different types.
 
 ```java
 
