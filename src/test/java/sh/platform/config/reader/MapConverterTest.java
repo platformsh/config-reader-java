@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import sh.platform.config.reader.provider.JSONBase64;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +22,7 @@ class MapConverterTest {
         assertEquals("database.internal", database.get("host"));
         assertEquals("246.0.97.91", database.get("ip"));
         assertEquals("main", database.get("path"));
-        assertEquals(BigDecimal.valueOf(3306), database.get("port"));
+        assertEquals(3306, Number.class.cast(database.get("port")).intValue());
         assertEquals("mysql", database.get("scheme"));
         assertEquals("user", database.get("username"));
 

@@ -1,7 +1,7 @@
 package sh.platform.config.reader;
 
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
+import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URISyntaxException;
@@ -30,7 +30,7 @@ final class MapConverter {
     private static final Type VARIABLES = new HashMap<String, String>() {
     }.getClass().getGenericSuperclass();
 
-    private static final Jsonb JSONB = JsonbBuilder.create();
+    private static final Gson GSON = new Gson();
 
 
     private MapConverter() {
@@ -38,17 +38,17 @@ final class MapConverter {
 
     static Map<String, List<Map<String, Object>>> toService(String relationship) {
         String text = new String(Base64.getDecoder().decode(relationship), UTF_8);
-        return JSONB.fromJson(text, SERVICE);
+        return GSON.fromJson(text, SERVICE);
     }
 
     static Map<String, Object> toRoute(String routes) {
         String text = new String(Base64.getDecoder().decode(routes), UTF_8);
-        return JSONB.fromJson(text, ROUTE);
+        return GSON.fromJson(text, ROUTE);
     }
 
     static Map<String, String> toVariable(String variable) {
         String text = new String(Base64.getDecoder().decode(variable), UTF_8);
-        return JSONB.fromJson(text, VARIABLES);
+        return GSON.fromJson(text, VARIABLES);
     }
 
     static String serviceToBase64() {

@@ -68,7 +68,8 @@ public class Credential {
         return Optional
                 .ofNullable(config.get(key))
                 .map(Object::toString)
-                .map(Integer::parseInt)
+                .map(Double::parseDouble)
+                .map(Double::intValue)
                 .orElseThrow(() -> new PlatformShException("Key does not found: " + key));
     }
 
