@@ -2,10 +2,10 @@ package sh.platform.config.reader;
 
 import com.google.gson.Gson;
 
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,6 +13,7 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.Files.readAllBytes;
@@ -53,14 +54,16 @@ final class MapConverter {
 
     static String serviceToBase64() {
         try {
-            URL url = MapConverter.class.getClassLoader().getResource(SERVICE_JSON);
-            if (url == null) {
+            InputStream stream = MapConverter.class.getClassLoader().getResourceAsStream(SERVICE_JSON);
+            if (stream == null) {
                 return null;
             }
-            Path path = Paths.get(url.toURI());
-            byte[] encode = Base64.getEncoder().encode(readAllBytes(path));
+            String result = new BufferedReader(new InputStreamReader(stream)).lines()
+                    .collect(Collectors.joining());
+
+            byte[] encode = Base64.getEncoder().encode(result.getBytes(StandardCharsets.UTF_8));
             return new String(encode, StandardCharsets.UTF_8);
-        } catch (URISyntaxException | IOException e) {
+        } catch (Exception e) {
             throw new PlatformShException("An error when load the default configuration", e);
         }
     }
