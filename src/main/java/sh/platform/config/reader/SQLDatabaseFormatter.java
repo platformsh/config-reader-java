@@ -3,6 +3,9 @@ package sh.platform.config.reader;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * A credential formatter that generates SQLDatabase
+ */
 public class SQLDatabaseFormatter implements CredentialFormatter<SQLDatabase> {
 
     @Override

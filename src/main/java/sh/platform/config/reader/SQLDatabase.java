@@ -5,6 +5,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * A credential specialization that provides information to a SQL database.
+ */
 public class SQLDatabase extends Database {
 
 

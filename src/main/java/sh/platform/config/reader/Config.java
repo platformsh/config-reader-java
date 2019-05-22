@@ -19,6 +19,9 @@ import static sh.platform.config.reader.PlatformVariables.PLATFORM_SMTP_HOST;
 import static sh.platform.config.reader.PlatformVariables.PLATFORM_TREE_ID;
 import static sh.platform.config.reader.PlatformVariables.PLATFORM_VARIABLES;
 
+/**
+ * The object that provides access to the Platform.sh environment.
+ */
 public class Config {
 
     private final Map<String, String> variables;
