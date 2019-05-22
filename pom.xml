@@ -8,8 +8,33 @@
     <artifactId>config-reader</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>config</name>
+    <name>config-reader</name>
+    <description>This library provides a streamlined and easy to use way to interact with a Platform.sh environment.
+    </description>
     <url>https://platform.sh/</url>
+
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git://github.com/platformsh/config-reader-java.git</connection>
+        <developerConnection>scm:git:ssh://github.com:platformsh/config-reader-java.git</developerConnection>
+        <url>https://github.com/platformsh/config-reader-java</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>Platform.sh Developers</name>
+            <organization>Platform.sh </organization>
+            <organizationUrl>https://github.com/platformsh</organizationUrl>
+        </developer>
+    </developers>
+
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
