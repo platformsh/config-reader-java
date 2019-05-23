@@ -53,9 +53,4 @@ public class SQLDatabase extends Credential {
         return String.format(URL, getName(), getHost(), getPort(), getPath());
     }
 
-    static SQLDatabase get(String name) {
-        Config config = Config.get();
-        Credential credential = config.getCredentials().get(name);
-        return new SQLDatabase(credential.toMap());
-    }
 }

@@ -35,7 +35,7 @@ public class Config {
     private final Map<String, Credential> credentials;
 
 
-    private Config(Map<String, String> envs) {
+    Config(Map<String, String> envs) {
         this.variables = ofNullable(envs.get(PLATFORM_VARIABLES.get()))
                 .map(MapConverter::toVariable).orElse(emptyMap());
         this.routes = ofNullable(envs.get(PLATFORM_ROUTES.get()))
