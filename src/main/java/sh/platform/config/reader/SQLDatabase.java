@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 /**
  * A credential specialization that provides information to a SQL database.
  */
-public class SQLDatabase extends Database {
+public class SQLDatabase extends Credential {
 
 
     private static final String URL = "jdbc:%s://%s:%d/%s";
