@@ -60,8 +60,8 @@ final class MapConverter {
 
             byte[] encode = Base64.getEncoder().encode(result.getBytes(StandardCharsets.UTF_8));
             return new String(encode, StandardCharsets.UTF_8);
-        } catch (Exception e) {
-            throw new PlatformShException("An error when load the default configuration", e);
+        } catch (Exception exp) {
+            throw new FallbackException("An error when load the default configuration", exp);
         }
     }
 }
