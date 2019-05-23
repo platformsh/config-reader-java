@@ -1,6 +1,7 @@
 package sh.platform.config.reader;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -14,6 +15,7 @@ import static sh.platform.config.reader.PlatformVariables.PLATFORM_DOCUMENT_ROOT
 import static sh.platform.config.reader.PlatformVariables.PLATFORM_ENVIRONMENT;
 import static sh.platform.config.reader.PlatformVariables.PLATFORM_PROJECT;
 import static sh.platform.config.reader.PlatformVariables.PLATFORM_PROJECT_ENTROPY;
+import static sh.platform.config.reader.PlatformVariables.PLATFORM_RELATIONSHIPS;
 import static sh.platform.config.reader.PlatformVariables.PLATFORM_ROUTES;
 import static sh.platform.config.reader.PlatformVariables.PLATFORM_SMTP_HOST;
 import static sh.platform.config.reader.PlatformVariables.PLATFORM_TREE_ID;
@@ -32,7 +34,8 @@ public class Config {
 
     private final Map<String, Credential> credentials;
 
-    Config(Map<String, String> envs) {
+
+    private Config(Map<String, String> envs) {
         this.variables = ofNullable(envs.get(PLATFORM_VARIABLES.get()))
                 .map(MapConverter::toVariable).orElse(emptyMap());
         this.routes = ofNullable(envs.get(PLATFORM_ROUTES.get()))
@@ -40,6 +43,14 @@ public class Config {
         this.envs = PlatformVariables.toMap(envs);
         this.credentials = ServiceConverter.INSTANCE.apply(envs);
 
+    }
+
+    /**
+     * Creates a new instance with the environments sets.
+     * By default, it will read the values and keep the {@link PlatformVariables}. Otherwise, it will the fallback code.
+     */
+    public Config() {
+        this(getEnvironments());
     }
 
     /**
@@ -165,11 +176,10 @@ public class Config {
     }
 
 
-    /**
-     * @return a {@link Config} instance
-     */
-    public static Config get() {
-        return ConfigSupplier.INSTANCE.get();
+    private static Map<String, String> getEnvironments() {
+        Map<String, String> envs = new HashMap<>(System.getenv());
+        envs.computeIfAbsent(PLATFORM_RELATIONSHIPS.get(), (s) -> MapConverter.serviceToBase64());
+        return envs;
     }
 
     private String toString(PlatformVariables variable) {
