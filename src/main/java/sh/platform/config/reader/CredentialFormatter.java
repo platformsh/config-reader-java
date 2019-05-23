@@ -12,5 +12,6 @@ import java.util.function.Function;
  *
  * @param <T> the produced type
  */
+@FunctionalInterface
 public interface CredentialFormatter<T> extends Function<Map<String, Object>, T> {
 }

@@ -55,7 +55,7 @@ public class Credential {
 
     protected String toString(String key) {
         return getOptionalString(key)
-                .orElseThrow(() -> new PlatformShException("Key does not found: " + key));
+                .orElseThrow(() -> new PropertyNotFoundException("Property not found: " + key));
     }
 
     protected Optional<String> getOptionalString(String key) {
@@ -70,7 +70,7 @@ public class Credential {
                 .map(Object::toString)
                 .map(Double::parseDouble)
                 .map(Double::intValue)
-                .orElseThrow(() -> new PlatformShException("Key does not found: " + key));
+                .orElseThrow(() -> new PropertyNotFoundException("Property not found: " + key));
     }
 
     public String toString() {
