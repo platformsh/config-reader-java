@@ -5,7 +5,7 @@ package sh.platform.config.reader;
  * but the Java API offers a fallback file that is useful when we talk about local development.
  * This exception will handle when there is some error when trying this fallback process.
  */
-public class FallbackException extends PlatformShException {
+class FallbackException extends PlatformShException {
 
     /**
      * Constructs a new runtime exception with the specified detail message and

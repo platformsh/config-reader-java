@@ -3,7 +3,7 @@ package sh.platform.config.reader;
 /**
  * Thrown by a {@link Credential} instance when a property is not found
  */
-public class PropertyNotFoundException extends PlatformShException {
+class PropertyNotFoundException extends PlatformShException {
 
     /** Constructs a new runtime exception with the specified detail message.
      * The cause is not initialized, and may subsequently be initialized by a
@@ -12,7 +12,7 @@ public class PropertyNotFoundException extends PlatformShException {
      * @param   message   the detail message. The detail message is saved for
      *          later retrieval by the {@link #getMessage()} method.
      */
-    public PropertyNotFoundException(String message) {
+    PropertyNotFoundException(String message) {
         super(message);
     }
 }

@@ -46,8 +46,7 @@ public class Config {
     }
 
     /**
-     * Creates a new instance with the environments sets.
-     * By default, it will read the values and keep the {@link PlatformVariables}. Otherwise, it will the fallback code.
+     * Creates a new instance from the environments values that come from {@link PlatformVariables}.
      */
     public Config() {
         this(getEnvironments());

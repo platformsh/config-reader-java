@@ -3,7 +3,7 @@ package sh.platform.config.reader;
 /**
  * The root exceptions from the Platform.SH config reader.
  */
-public class PlatformShException extends RuntimeException {
+class PlatformShException extends RuntimeException {
 
     /** Constructs a new runtime exception with the specified detail message.
      * The cause is not initialized, and may subsequently be initialized by a
