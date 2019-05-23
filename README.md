@@ -34,7 +34,7 @@ compile group: 'sh.platform', name: 'config-reader', version: '0.0.1-SNAPSHOT'
 ```java
 import sh.platform.config.reader.Config;
 
-Config config = Config.get();
+Config config = new Config();
 ```
 
 `config` is now a `Config` object that provides access to the Platform.sh environment.
@@ -89,7 +89,7 @@ A Credential Formatter is a functional interface that takes a credentials array 
 ```java
 
 
-Config config = Config.get();
+Config config = new Config();
 CustomCredential credential = config.getCredential("key", CustomCredential::new);
 
 ```
