@@ -1,8 +1,8 @@
-package sh.platform.config.reader;
+package sh.platform.config;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
-import sh.platform.config.reader.provider.JSONBase64;
+import sh.platform.config.provider.JSONBase64;
 
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package sh.platform.config.reader;
+package sh.platform.config;
 
 /**
  * The root exceptions from the Platform.SH config reader.

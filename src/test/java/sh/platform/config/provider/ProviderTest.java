@@ -1,4 +1,4 @@
-package sh.platform.config.reader.provider;
+package sh.platform.config.provider;
 
 
 import com.google.gson.Gson;

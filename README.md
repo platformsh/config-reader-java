@@ -32,7 +32,7 @@ compile group: 'sh.platform', name: 'config-reader', version: '0.0.1-SNAPSHOT'
 ### Create a config object
 
 ```java
-import sh.platform.config.reader.Config;
+import Config;
 
 Config config = new Config();
 ```

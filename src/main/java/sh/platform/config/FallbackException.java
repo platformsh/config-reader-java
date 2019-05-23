@@ -1,4 +1,4 @@
-package sh.platform.config.reader;
+package sh.platform.config;
 
 /**
  * Platform.SH has all configuration setup through the environment in the cloud,

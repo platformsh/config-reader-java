@@ -1,4 +1,4 @@
-package sh.platform.config.reader;
+package sh.platform.config;
 
 /**
  * Thrown by a {@link Credential} instance when a property is not found
