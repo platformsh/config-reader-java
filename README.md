@@ -1,6 +1,6 @@
 # Platform.sh Config Reader (Java)
 
-[![CircleCI Status](https://circleci.com/gh/platformsh/config-reader-python.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/platformsh/config-reader-python)
+[![CircleCI Status](https://circleci.com/gh/platformsh/config-reader-java.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/platformsh/config-reader-java)
 
 This library provides a streamlined and easy to use way to interact with a Platform.sh environment. It offers utility methods to access routes and relationships more cleanly than reading the raw environment variables yourself.
 
