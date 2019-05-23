@@ -14,7 +14,7 @@ This library requires Java 8 or later.
 ```xml
 <dependency>
     <groupId>sh.platform</groupId>
-    <artifactId>config-reader</artifactId>
+    <artifactId>config</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 </dependency>
 ```
@@ -22,7 +22,7 @@ This library requires Java 8 or later.
 ### Gradle 
 
 ```xml
-compile group: 'sh.platform', name: 'config-reader', version: '0.0.1-SNAPSHOT'
+compile group: 'sh.platform', name: 'config', version: '0.0.1-SNAPSHOT'
 
 ```
 
