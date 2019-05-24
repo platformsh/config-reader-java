@@ -48,6 +48,6 @@ class SQLDatabaseTest {
         Map<String, List<Map<String, Object>>> map = MapConverter.toService(base64Text);
         Map<String, Object> database = map.get("database").get(0);
         SQLDatabase service = new SQLDatabase(database);
-        assertEquals("jdbc:postgresql://postgresql.internal:5432/main", service.getJDBCURL("mysql"));
+        assertEquals("jdbc:postgresql://postgresql.internal:5432/main", service.getJDBCURL("postgresql"));
     }
 }
