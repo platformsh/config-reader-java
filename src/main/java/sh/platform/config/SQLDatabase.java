@@ -49,8 +49,9 @@ public class SQLDatabase extends Credential {
         return toString("password");
     }
 
-    public String getJDBCURL() {
-        return String.format(URL, getName(), getHost(), getPort(), getPath());
+    public String getJDBCURL(String provider) {
+        Objects.requireNonNull(provider, "provider is required");
+        return String.format(URL, provider, getHost(), getPort(), getPath());
     }
 
 }
