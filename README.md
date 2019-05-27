@@ -105,6 +105,8 @@ Three formatters are included out of the box:
 * `MongoDB` returns a MongoDB connection as MongoClient instance
 * `MySQL` returns a MySQL connection as DataSource.
 * `PostgreSQL` returns a PostgreSQL connection as DataSource.
+* `Redis` returns a Redis connection as JedisPool.
+* `RedisSpring` returns a Redis connection as JedisConnectionFactory.
 
 ### Reading Platform.sh variables
 
