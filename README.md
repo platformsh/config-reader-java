@@ -103,7 +103,8 @@ Three formatters are included out of the box:
 
 * `SQLDatabase` returns format to SQL technology such as PostgreSQL and MySQL.
 * `MongoDB` returns a MongoDB connection as MongoClient instance
-* `MySQL` returns a MySQL connection as DataSource 
+* `MySQL` returns a MySQL connection as DataSource.
+* `PostgreSQL` returns a PostgreSQL connection as DataSource.
 
 ### Reading Platform.sh variables
 
