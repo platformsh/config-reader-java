@@ -1,16 +1,16 @@
 package sh.platform.config.sample;
 
 import sh.platform.config.Config;
-import sh.platform.config.MySQL;
+import sh.platform.config.PostgreSQL;
 
 import javax.sql.DataSource;
 
-public class MySQLSample {
+public class PostgreSQLSample {
 
     public static void main(String[] args) {
         Config config = new Config();
-        MySQL mySQL = config.getCredential("database", MySQL::new);
-        DataSource dataSource = mySQL.get();
+        PostgreSQL database = config.getCredential("database", PostgreSQL::new);
+        DataSource dataSource = database.get();
 
     }
 }

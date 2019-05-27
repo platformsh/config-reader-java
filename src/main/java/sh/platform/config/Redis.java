@@ -7,13 +7,13 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 /**
- * 
+ * A credential specialization that provides a Redis connection with {@link JedisPool}
  */
-public class RedisJedisPool extends Credential implements Supplier<JedisPool> {
+public class Redis extends Credential implements Supplier<JedisPool> {
 
     private static final int DEFAULT_TIMEOUT = 2000;
 
-    public RedisJedisPool(Map<String, Object> config) {
+    public Redis(Map<String, Object> config) {
         super(config);
     }
 

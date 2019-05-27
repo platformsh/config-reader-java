@@ -1,5 +1,7 @@
 package sh.platform.config;
 
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
@@ -7,23 +9,23 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 /**
- *
+ * A credential specialization that provides a Redis connection to Spring with {@link JedisConnectionFactory}
  */
-public class Redis extends Credential implements Supplier<JedisPool> {
+public class RedisSpring extends Credential implements Supplier<JedisConnectionFactory> {
 
-    private static final int DEFAULT_TIMEOUT = 2000;
-
-    public Redis(Map<String, Object> config) {
+    public RedisSpring(Map<String, Object> config) {
         super(config);
     }
 
     @Override
-    public JedisPool get() {
+    public JedisConnectionFactory get() {
 
         String host = getStringSafe("host").orElse(null);
         Integer port = getInt("port");
         String password = getStringSafe("password").orElse(null);
-        JedisPoolConfig poolConfig = new JedisPoolConfig();
-        return new JedisPool(poolConfig, host, port, DEFAULT_TIMEOUT, password);
+
+        RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration(host, port);
+        configuration.setPassword(password);
+        return new JedisConnectionFactory(configuration);
     }
 }
