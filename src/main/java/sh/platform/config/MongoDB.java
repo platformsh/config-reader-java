@@ -1,10 +1,10 @@
 package sh.platform.config;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -34,7 +34,7 @@ public class MongoDB extends Credential implements Supplier<MongoClient> {
             MongoCredential credential = MongoCredential.createCredential(username.get(),
                     getDatabase(), password.get());
             ServerAddress serverAddress = new ServerAddress(host, port);
-            return new MongoClient(serverAddress, Arrays.asList(credential));
+            return new MongoClient(serverAddress, credential, MongoClientOptions.builder().build());
 
         }
         return new MongoClient(host, port);
