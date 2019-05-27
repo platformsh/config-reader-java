@@ -46,6 +46,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <junit.version>5.5.0-M1</junit.version>
         <mongo.version>3.8.2</mongo.version>
+        <mysql.version>8.0.16</mysql.version>
     </properties>
 
     <dependencies>
@@ -58,6 +59,12 @@
             <groupId>org.mongodb</groupId>
             <artifactId>mongo-java-driver</artifactId>
             <version>${mongo.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
