@@ -102,6 +102,7 @@ The type of `formatted` will depend on the formatter function and can be safely 
 Three formatters are included out of the box:
 
 * `SQLDatabase` returns format to SQL technology such as PostgreSQL and MySQL.
+* `MongoDB` returns a MongoDB connection as MongoClient instance 
 
 ### Reading Platform.sh variables
 
