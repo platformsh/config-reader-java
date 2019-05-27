@@ -47,6 +47,7 @@
         <junit.version>5.5.0-M1</junit.version>
         <mongo.version>3.8.2</mongo.version>
         <mysql.version>8.0.16</mysql.version>
+        <postgresql.version>42.2.5</postgresql.version>
     </properties>
 
     <dependencies>
@@ -65,6 +66,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
