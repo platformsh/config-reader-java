@@ -1,4 +1,46 @@
 package sh.platform.config;
 
-public class MongoDB {
+import com.mongodb.MongoClient;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
+
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Supplier;
+
+/**
+ * A credential specialization that provides information a MongoDB connection as {@link MongoClient}
+ */
+public class MongoDB extends Credential implements Supplier<MongoClient> {
+
+    public MongoDB(Map<String, Object> config) {
+        super(config);
+    }
+
+    @Override
+    public MongoClient get() {
+
+        Optional<String> username = getStringSafe("username")
+                .filter(s -> !s.isEmpty());
+
+        int port = getIntSafe("port").orElse(0);
+        String host = getString("host");
+
+        Optional<char[]> password = getStringSafe("password")
+                .map(String::toCharArray);
+
+        if (username.isPresent()) {
+            MongoCredential credential = MongoCredential.createCredential(username.get(),
+                    getDatabase(), password.get());
+            ServerAddress serverAddress = new ServerAddress(host, port);
+            return new MongoClient(serverAddress, Arrays.asList(credential));
+
+        }
+        return new MongoClient(host, port);
+    }
+
+    public String getDatabase() {
+        return config.get("path").toString();
+    }
 }
