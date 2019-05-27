@@ -19,11 +19,11 @@ public class SQLDatabase extends Credential {
     }
 
     public String getUserName() {
-        return toString("username");
+        return getString("username");
     }
 
     public Optional<String> getFragment() {
-        return getOptionalString("fragment");
+        return getStringSafe("fragment");
     }
 
     public boolean isPublic() {
@@ -42,11 +42,11 @@ public class SQLDatabase extends Credential {
     }
 
     public String getPath() {
-        return toString("path");
+        return getString("path");
     }
 
     public String getPassword() {
-        return toString("password");
+        return getString("password");
     }
 
     public String getJDBCURL(String provider) {
