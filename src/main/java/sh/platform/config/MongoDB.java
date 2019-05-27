@@ -41,6 +41,6 @@ public class MongoDB extends Credential implements Supplier<MongoClient> {
     }
 
     public String getDatabase() {
-        return config.get("path").toString();
+        return getString("path");
     }
 }
