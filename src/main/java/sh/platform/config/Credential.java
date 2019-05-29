@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * An Unit  of a service that comes from {@link PlatformVariables#PLATFORM_RELATIONSHIPS}
+ * Access information for an individual service that comes from {@link PlatformVariables#PLATFORM_RELATIONSHIPS}
  */
 public class Credential {
 

@@ -84,6 +84,7 @@ The return value of `getCredentials()` is a dictionary matching the relationship
 ## Formatting service credentials
 
 In some cases the library being used to connect to a service wants its credentials formatted in a specific way; it could be a DSN string of some sort or it needs certain values concatenated to the database name, etc.  For those cases you can use "Credential Formatters".  
+
 A Credential Formatter is a functional interface that takes a credentials array and returns any type, since the library may want different types.
 
 ```java
@@ -102,11 +103,11 @@ The type of `formatted` will depend on the formatter function and can be safely 
 Three formatters are included out of the box:
 
 * `SQLDatabase` returns format to SQL technology such as PostgreSQL and MySQL.
-* `MongoDB` returns a MongoDB connection as MongoClient instance
-* `MySQL` returns a MySQL connection as DataSource.
-* `PostgreSQL` returns a PostgreSQL connection as DataSource.
-* `Redis` returns a Redis connection as JedisPool.
-* `RedisSpring` returns a Redis connection as JedisConnectionFactory.
+* `MongoDB` returns a MongoClient instance.
+* `MySQL` returns a MySQL DataSource.
+* `PostgreSQL` returns a PostgreSQL DataSource.
+* `Redis` returns a Redis JedisPool.
+* `RedisSpring` returns JedisConnectionFactory to Spring Data.
 
 ### Reading Platform.sh variables
 
