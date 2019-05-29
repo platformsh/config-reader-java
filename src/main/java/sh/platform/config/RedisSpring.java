@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 /**
- * A credential specialization that provides a Redis connection to Spring with {@link JedisConnectionFactory}
+ * A credential specialization that provides a {@link JedisConnectionFactory}
  */
 public class RedisSpring extends Credential implements Supplier<JedisConnectionFactory> {
 

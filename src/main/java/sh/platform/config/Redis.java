@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 /**
- * A credential specialization that provides a Redis connection with {@link JedisPool}
+ * A credential specialization that provides a {@link JedisPool}
  */
 public class Redis extends Credential implements Supplier<JedisPool> {
 

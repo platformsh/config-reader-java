@@ -102,7 +102,7 @@ The type of `formatted` will depend on the formatter function and can be safely 
 
 Three formatters are included out of the box:
 
-* `SQLDatabase` returns a database URL used by most MySQL and PostgreSQL JDBC driver.
+* `SQLDatabase` returns a database URL used by most MySQL and PostgreSQL JDBC drivers.
 * `MongoDB` returns a MongoClient instance.
 * `MySQL` returns a MySQL DataSource.
 * `PostgreSQL` returns a PostgreSQL DataSource.

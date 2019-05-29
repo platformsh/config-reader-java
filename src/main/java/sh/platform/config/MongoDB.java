@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
- * A credential specialization that provides information a MongoDB connection as {@link MongoClient}
+ * A credential specialization that provides information a {@link MongoClient}
  */
 public class MongoDB extends Credential implements Supplier<MongoClient> {
 
