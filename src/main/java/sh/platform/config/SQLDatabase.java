@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
  */
 public class SQLDatabase extends Credential {
 
-
     private static final String URL = "jdbc:%s://%s:%d/%s";
 
     public SQLDatabase(Map<String, Object> config) {
@@ -53,5 +52,4 @@ public class SQLDatabase extends Credential {
         Objects.requireNonNull(provider, "provider is required");
         return String.format(URL, provider, getHost(), getPort(), getPath());
     }
-
 }
