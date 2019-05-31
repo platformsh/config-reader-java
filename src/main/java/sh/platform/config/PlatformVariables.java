@@ -1,4 +1,4 @@
-package sh.platform.config.reader;
+package sh.platform.config;
 
 import java.util.EnumMap;
 import java.util.Map;

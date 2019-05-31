@@ -1,9 +1,9 @@
-package sh.platform.config.reader;
+package sh.platform.config;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import sh.platform.config.reader.provider.JSONBase64;
+import sh.platform.config.provider.JSONBase64;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,13 +11,13 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static sh.platform.config.reader.PlatformVariables.PLATFORM_APPLICATION_NAME;
-import static sh.platform.config.reader.PlatformVariables.PLATFORM_APP_DIR;
-import static sh.platform.config.reader.PlatformVariables.PLATFORM_PROJECT;
-import static sh.platform.config.reader.PlatformVariables.PLATFORM_RELATIONSHIPS;
-import static sh.platform.config.reader.PlatformVariables.PLATFORM_ROUTES;
-import static sh.platform.config.reader.PlatformVariables.PLATFORM_TREE_ID;
-import static sh.platform.config.reader.PlatformVariables.PLATFORM_VARIABLES;
+import static sh.platform.config.PlatformVariables.PLATFORM_APPLICATION_NAME;
+import static sh.platform.config.PlatformVariables.PLATFORM_APP_DIR;
+import static sh.platform.config.PlatformVariables.PLATFORM_PROJECT;
+import static sh.platform.config.PlatformVariables.PLATFORM_RELATIONSHIPS;
+import static sh.platform.config.PlatformVariables.PLATFORM_ROUTES;
+import static sh.platform.config.PlatformVariables.PLATFORM_TREE_ID;
+import static sh.platform.config.PlatformVariables.PLATFORM_VARIABLES;
 
 class ConfigTest {
 

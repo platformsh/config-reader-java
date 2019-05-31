@@ -1,6 +1,6 @@
 # Platform.sh Config Reader (Java)
 
-[![CircleCI Status](https://circleci.com/gh/platformsh/config-reader-python.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/platformsh/config-reader-python)
+[![CircleCI Status](https://circleci.com/gh/platformsh/config-reader-java.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/platformsh/config-reader-java)
 
 This library provides a streamlined and easy to use way to interact with a Platform.sh environment. It offers utility methods to access routes and relationships more cleanly than reading the raw environment variables yourself.
 
@@ -14,7 +14,7 @@ This library requires Java 8 or later.
 ```xml
 <dependency>
     <groupId>sh.platform</groupId>
-    <artifactId>config-reader</artifactId>
+    <artifactId>config</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 </dependency>
 ```
@@ -22,28 +22,19 @@ This library requires Java 8 or later.
 ### Gradle 
 
 ```xml
-compile group: 'sh.platform', name: 'config-reader', version: '0.0.1-SNAPSHOT'
+compile group: 'sh.platform', name: 'config', version: '0.0.1-SNAPSHOT'
 
 ```
 
-## Usage Example
-
-Example:
-
-```python
-import Config;
-
-Config config = Config.get();
-```
 
 ## API Reference
 
 ### Create a config object
 
 ```java
-import sh.platform.config.reader.Config;
+import Config;
 
-Config config = Config.get();
+Config config = new Config();
 ```
 
 `config` is now a `Config` object that provides access to the Platform.sh environment.
@@ -92,16 +83,15 @@ The return value of `getCredentials()` is a dictionary matching the relationship
 
 ## Formatting service credentials
 
-In some cases the library being used to connect to a service wants its credentials formatted in a specific way; it could be a DSN string of some sort or it needs certain values concatenated to the database name, etc.  For those cases you can use "Credential Formatters".  A Credential Formatter is any `callable` (function, anonymous function, object method, etc.) that takes a credentials array and returns any type, since the library may want different types.
+In some cases the library being used to connect to a service wants its credentials formatted in a specific way; it could be a DSN string of some sort or it needs certain values concatenated to the database name, etc.  For those cases you can use "Credential Formatters".  
 
-Credential Formatters can be registered on the configuration object, and a few are included out of the box.  That allows 3rd party libraries to ship their own formatters that can be easily integrated into the `Config` object to allow easier use.
+A Credential Formatter is a functional interface that takes a credentials array and returns any type, since the library may want different types.
 
 ```java
 
 
-Config config = Config.get();
-CredentialFormatter<CustomCredentials> formatter = CustomCredentials::new;
-CustomCredentials credentials = config.getCredential("key", formatter);
+Config config = new Config();
+CustomCredential credential = config.getCredential("key", CustomCredential::new);
 
 ```
 
@@ -112,7 +102,12 @@ The type of `formatted` will depend on the formatter function and can be safely 
 
 Three formatters are included out of the box:
 
-* `SQLDatabaseFormatter` returns format to SQL technology such as PostgreSQL and MySQL.
+* `SQLDatabase` returns a database URL used by most MySQL and PostgreSQL JDBC drivers.
+* `MongoDB` returns a MongoClient instance.
+* `MySQL` returns a MySQL DataSource.
+* `PostgreSQL` returns a PostgreSQL DataSource.
+* `Redis` returns a Redis JedisPool.
+* `RedisSpring` returns JedisConnectionFactory to Spring Data.
 
 ### Reading Platform.sh variables
 

@@ -1,25 +1,28 @@
-package sh.platform.config.reader;
+package sh.platform.config;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class SQLDatabase extends Database {
-
+/**
+ * A credential specialization that provides information to a SQL database.
+ */
+public class SQLDatabase extends Credential {
 
     private static final String URL = "jdbc:%s://%s:%d/%s";
 
-    SQLDatabase(Map<String, Object> config) {
-        super(config);
+    public SQLDatabase(Map<String, Object> config) {
+        super(Objects.requireNonNull(config, "config is required"));
     }
 
     public String getUserName() {
-        return toString("username");
+        return getString("username");
     }
 
     public Optional<String> getFragment() {
-        return getOptionalString("fragment");
+        return getStringSafe("fragment");
     }
 
     public boolean isPublic() {
@@ -38,20 +41,15 @@ public class SQLDatabase extends Database {
     }
 
     public String getPath() {
-        return toString("path");
+        return getString("path");
     }
 
     public String getPassword() {
-        return toString("password");
+        return getString("password");
     }
 
-    public String getJDBCURL() {
-        return String.format(URL, getName(), getHost(), getPort(), getPath());
-    }
-
-    static SQLDatabase get(String name) {
-        Config config = Config.get();
-        Credential credential = config.getCredentials().get(name);
-        return new SQLDatabase(credential.toMap());
+    public String getJDBCURL(String provider) {
+        Objects.requireNonNull(provider, "provider is required");
+        return String.format(URL, provider, getHost(), getPort(), getPath());
     }
 }

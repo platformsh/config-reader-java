@@ -1,12 +1,15 @@
-package sh.platform.config.reader;
+package sh.platform.config;
 
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Access information for an individual service that comes from {@link PlatformVariables#PLATFORM_RELATIONSHIPS}
+ */
 public class Credential {
 
-    private final Map<String, Object> config;
+    protected final Map<String, Object> config;
 
     Credential(Map<String, Object> config) {
         this.config = config;
@@ -17,31 +20,31 @@ public class Credential {
     }
 
     public String getName() {
-        return toString("service");
+        return getString("service");
     }
 
     public String getScheme() {
-        return toString("scheme");
+        return getString("scheme");
     }
 
     public String getIp() {
-        return toString("ip");
+        return getString("ip");
     }
 
     public String getType() {
-        return toString("type");
+        return getString("type");
     }
 
     public int getPort() {
-        return toInt("port");
+        return getInt("port");
     }
 
     public String getHost() {
-        return toString("host");
+        return getString("host");
     }
 
     public String getCluster() {
-        return toString("cluster");
+        return getString("cluster");
     }
 
     public Map<String, Object> toMap() {
@@ -49,27 +52,32 @@ public class Credential {
     }
 
     public String getRelationship() {
-        return toString("rel");
+        return getString("rel");
     }
 
 
-    protected String toString(String key) {
-        return getOptionalString(key)
-                .orElseThrow(() -> new PlatformShException("Key does not found: " + key));
+    protected String getString(String key) {
+        return getStringSafe(key)
+                .orElseThrow(() -> new PropertyNotFoundException("Property not found: " + key));
     }
 
-    protected Optional<String> getOptionalString(String key) {
+    protected Integer getInt(String key) {
+        return getIntSafe(key)
+                .orElseThrow(() -> new PropertyNotFoundException("Property not found: " + key));
+    }
+
+    protected Optional<String> getStringSafe(String key) {
         return Optional
                 .ofNullable(config.get(key))
                 .map(Object::toString);
     }
 
-    protected Integer toInt(String key) {
+    protected Optional<Integer> getIntSafe(String key) {
         return Optional
                 .ofNullable(config.get(key))
                 .map(Object::toString)
-                .map(Integer::parseInt)
-                .orElseThrow(() -> new PlatformShException("Key does not found: " + key));
+                .map(Double::parseDouble)
+                .map(aDouble -> aDouble.intValue());
     }
 
     public String toString() {

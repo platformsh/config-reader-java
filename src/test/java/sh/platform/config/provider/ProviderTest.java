@@ -1,11 +1,10 @@
-package sh.platform.config.reader.provider;
+package sh.platform.config.provider;
 
 
+import com.google.gson.Gson;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
 import java.lang.reflect.Type;
 import java.util.Base64;
 import java.util.HashMap;
@@ -24,8 +23,8 @@ public class ProviderTest {
         }.getClass().getGenericSuperclass();
         String text = new String(Base64.getDecoder().decode(base64Text), UTF_8);
 
-        Jsonb jsonb = JsonbBuilder.create();
-        Map<String, List<Map<String, Object>>> json = jsonb.fromJson(text, type);
+        Gson gson = new Gson();
+        Map<String, List<Map<String, Object>>> json = gson.fromJson(text, type);
         Assertions.assertNotNull(json);
 
     }
