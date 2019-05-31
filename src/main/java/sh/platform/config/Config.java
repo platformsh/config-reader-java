@@ -15,7 +15,6 @@ import static sh.platform.config.PlatformVariables.PLATFORM_DOCUMENT_ROOT;
 import static sh.platform.config.PlatformVariables.PLATFORM_ENVIRONMENT;
 import static sh.platform.config.PlatformVariables.PLATFORM_PROJECT;
 import static sh.platform.config.PlatformVariables.PLATFORM_PROJECT_ENTROPY;
-import static sh.platform.config.PlatformVariables.PLATFORM_RELATIONSHIPS;
 import static sh.platform.config.PlatformVariables.PLATFORM_ROUTES;
 import static sh.platform.config.PlatformVariables.PLATFORM_SMTP_HOST;
 import static sh.platform.config.PlatformVariables.PLATFORM_TREE_ID;
@@ -177,7 +176,6 @@ public class Config {
 
     private static Map<String, String> getEnvironments() {
         Map<String, String> envs = new HashMap<>(System.getenv());
-        envs.computeIfAbsent(PLATFORM_RELATIONSHIPS.get(), (s) -> MapConverter.serviceToBase64());
         return envs;
     }
 

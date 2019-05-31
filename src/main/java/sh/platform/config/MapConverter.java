@@ -2,22 +2,15 @@ package sh.platform.config;
 
 import com.google.gson.Gson;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Type;
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 final class MapConverter {
-
-    private static final String SERVICE_JSON = "service.json";
 
     private static final Type SERVICE = new HashMap<String, List<Map<String, Object>>>() {
     }.getClass().getGenericSuperclass();
@@ -49,19 +42,4 @@ final class MapConverter {
         return GSON.fromJson(text, VARIABLES);
     }
 
-    static String serviceToBase64() {
-        try {
-            InputStream stream = MapConverter.class.getClassLoader().getResourceAsStream(SERVICE_JSON);
-            if (stream == null) {
-                return null;
-            }
-            String result = new BufferedReader(new InputStreamReader(stream)).lines()
-                    .collect(Collectors.joining());
-
-            byte[] encode = Base64.getEncoder().encode(result.getBytes(StandardCharsets.UTF_8));
-            return new String(encode, StandardCharsets.UTF_8);
-        } catch (Exception exp) {
-            throw new FallbackException("An error when load the default configuration", exp);
-        }
-    }
 }
