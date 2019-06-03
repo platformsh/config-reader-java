@@ -25,7 +25,7 @@ public class Elasticsearch extends Credential implements Supplier<RestHighLevelC
     @Override
     public RestHighLevelClient get() {
         RestClientBuilder builder = RestClient.builder(new HttpHost(getHost(), getPort()));
-        final Optional<String> username =getStringSafe("username");
+        final Optional<String> username = getStringSafe("username");
         final Optional<String> password = getStringSafe("password");
         if(username.isPresent()) {
             final CredentialsProvider credentialsProvider =
