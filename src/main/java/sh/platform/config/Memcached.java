@@ -34,7 +34,7 @@ public class Memcached extends Credential implements Supplier<MemcachedClient> {
         try {
             return new MemcachedClient(factoryBuilder.build(), singletonList(address));
         } catch (IOException exp) {
-            throw new PlatformShException("An error when start the Memcached", exp);
+            throw new PlatformShException("An error when read credential to start Memcached client", exp);
         }
     }
 }
