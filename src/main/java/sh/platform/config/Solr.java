@@ -18,7 +18,7 @@ public class Solr extends Credential implements Supplier<HttpSolrClient> {
     public HttpSolrClient get() {
 
         final String path = getStringSafe("path").orElse("");
-        String host = String.format("http://%s:%d/solr/%s", getHost(), getPort(), path);
+        String host = String.format("http://%s:%d/%s", getHost(), getPort(), path);
         return new HttpSolrClient.Builder(host)
                 .build();
     }
