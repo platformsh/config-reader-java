@@ -107,6 +107,9 @@ Three formatters are included out of the box:
 * `MySQL` returns a MySQL DataSource.
 * `PostgreSQL` returns a PostgreSQL DataSource.
 * `Redis` returns a Redis JedisPool.
+* `Solr` returns a HttpSolrClient instance.
+* `Memcached` returns a MemcachedClient instance.
+* `Elasticsearch` returns a RestHighLevelClient instance.
 * `RedisSpring` returns JedisConnectionFactory to Spring Data.
 
 ### Reading Platform.sh variables
