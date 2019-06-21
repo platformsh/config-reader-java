@@ -16,10 +16,20 @@ public class Solr extends Credential implements Supplier<HttpSolrClient> {
 
     @Override
     public HttpSolrClient get() {
-
         final String path = getStringSafe("path").orElse("");
         String host = String.format("http://%s:%d/%s", getHost(), getPort(), path);
         return new HttpSolrClient.Builder(host)
+                .build();
+    }
+
+    /**
+     * @return Returns the connection as root URL, in other words, a {@link HttpSolrClient}
+     * without core path.
+     */
+    public HttpSolrClient getRoot() {
+        final String path = getStringSafe("path").orElse("");
+        String host = String.format("http://%s:%d/%s", getHost(), getPort(), path);
+        return new HttpSolrClient.Builder(host.substring(0, host.lastIndexOf('/')))
                 .build();
     }
 }
