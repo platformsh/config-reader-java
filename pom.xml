@@ -6,7 +6,7 @@
 
     <groupId>sh.platform</groupId>
     <artifactId>config</artifactId>
-    <version>2.2.2-SNAPSHOT</version>
+    <version>2.2.1-SNAPSHOT</version>
 
     <name>config</name>
     <description>This library provides a streamlined and easy to use way to interact with a Platform.sh environment.
