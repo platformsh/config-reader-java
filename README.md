@@ -111,6 +111,12 @@ Three formatters are included out of the box:
 * `Memcached` returns a MemcachedClient instance.
 * `Elasticsearch` returns a RestHighLevelClient instance.
 * `RedisSpring` returns JedisConnectionFactory to Spring Data.
+* `JPA` returns an EntityManagerFactory
+* `Hibernate` returns a SessionFactory
+* `RabbitMQ` returns a JMS ConnectionFactory
+* `RabbitMQSpring` returns a JmsListenerContainerFactory
+* `Kafka` returns a producer and consumer to Apache Kafka
+
 
 ### Reading Platform.sh variables
 
