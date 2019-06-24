@@ -7,6 +7,9 @@ import java.util.Objects;
 
 import static javax.persistence.Persistence.createEntityManagerFactory;
 
+/**
+ * A credential specialization that provides a {@link EntityManagerFactory}
+ */
 public class JPA extends Credential {
 
     public JPA(Map<String, Object> config) {
@@ -18,7 +21,7 @@ public class JPA extends Credential {
      *
      * @return {@link EntityManagerFactory}
      */
-    public EntityManagerFactory getPostgresql(String persistenceUnitName) {
+    public EntityManagerFactory getPostgreSQL(String persistenceUnitName) {
         Objects.requireNonNull(persistenceUnitName, "persistenceUnitName");
 
         return getEntityManagerFactory("org.postgresql.Driver", "postgresql", persistenceUnitName);
