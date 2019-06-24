@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.Properties;
 
 /**
- * A credential specialization that provides a {@link SessionFactory}
+ * A credential specialization that provides a {@link SessionFactory}.
  */
 public class Hibernate extends Credential {
 
@@ -20,7 +20,7 @@ public class Hibernate extends Credential {
     }
 
     /**
-     * Create and return an SessionFactory using MYSQL driver
+     * Create and return an SessionFactory using MYSQL driver.
      *
      * @param configuration the hibernate properties configuration
      * @return a {@link SessionFactory}
@@ -32,7 +32,7 @@ public class Hibernate extends Credential {
     }
 
     /**
-     * Create and return an SessionFactory using MYSQL driver
+     * Create and return an SessionFactory using MYSQL driver.
      *
      * @return a {@link SessionFactory}
      */
@@ -41,7 +41,7 @@ public class Hibernate extends Credential {
     }
 
     /**
-     * Create and return an SessionFactory using PostgreSQL driver
+     * Create and return an SessionFactory using PostgreSQL driver.
      *
      * @param configuration the hibernate properties configuration
      * @return {@link SessionFactory}
@@ -53,7 +53,7 @@ public class Hibernate extends Credential {
     }
 
     /**
-     * Create and return an SessionFactory using PostgreSQL driver
+     * Create and return an SessionFactory using PostgreSQL driver.
      *
      * @return {@link SessionFactory}
      * @throws NullPointerException when properties is null

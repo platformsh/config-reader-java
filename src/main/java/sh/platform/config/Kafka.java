@@ -27,7 +27,7 @@ public class Kafka extends Credential {
     }
 
     /**
-     * Creates a Kafka producer
+     * Creates a Kafka producer.
      *
      * @param properties the properties where it will overwrite
      *                   {@link ProducerConfig#BOOTSTRAP_SERVERS_CONFIG} and set {@link LongSerializer}
@@ -47,7 +47,7 @@ public class Kafka extends Credential {
     }
 
     /**
-     * Creates a Kafka Consumer
+     * Creates a Kafka Consumer.
      *
      * @param properties the properties Where it will overwrite
      *                   {@link ConsumerConfig#BOOTSTRAP_SERVERS_CONFIG} and set {@link LongDeserializer} and
