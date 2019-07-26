@@ -1,15 +1,10 @@
 package sh.platform.config.integration;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import sh.platform.config.Config;
-import sh.platform.config.Hibernate;
 import sh.platform.config.JPA;
 
 import javax.persistence.EntityManager;
@@ -17,8 +12,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class JPAPostgresqlSQLTest {
 
