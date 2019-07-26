@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.function.Supplier;
 
+import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toMap;
 
 final class Credentials implements Supplier<Map<String, Credential>> {
@@ -19,6 +20,23 @@ final class Credentials implements Supplier<Map<String, Credential>> {
     Credentials(Map<String, Credential> credentials) {
         this.credentials = credentials;
         this.properties = properties();
+    }
+
+    @Override
+    public Map<String, Credential> get() {
+        return credentials;
+    }
+
+    Credential getCredential(String key) {
+        return ofNullable(credentials.get(key))
+                .orElseThrow(() -> new PlatformShException("Credential does not found: " + key));
+    }
+
+    <T> T getCredential(String key, CredentialFormatter<T> formatter) {
+        return ofNullable(credentials.get(key))
+                .map(Credential::toMap)
+                .map(formatter::apply)
+                .orElseThrow(() -> new PlatformShException("Credential does not found: " + key));
     }
 
     static Map<String, Object> properties() {
@@ -38,10 +56,5 @@ final class Credentials implements Supplier<Map<String, Credential>> {
         } catch (Exception exp) {
             throw new FallbackException("An error when load the default configuration", exp);
         }
-    }
-
-    @Override
-    public Map<String, Credential> get() {
-        return credentials;
     }
 }
