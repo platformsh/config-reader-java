@@ -5,71 +5,70 @@ import org.junit.jupiter.api.Assertions;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import sh.platform.config.Config;
-import sh.platform.config.MySQL;
+import sh.platform.config.PostgreSQL;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class MySQLTest {
+public class PostgreSQLTest {
 
-    private GenericContainer mysql =
-            new GenericContainer("mysql:latest")
-                    .withExposedPorts(3306)
-                    .withEnv("MYSQL_ROOT_PASSWORD", "password")
-                    .withEnv("MYSQL_DATABASE", "people")
+    private GenericContainer postgres =
+            new GenericContainer("postgres:latest")
+                    .withExposedPorts(5432)
+                    .withEnv("POSTGRES_PASSWORD", "password")
+                    .withEnv("POSTGRES_DB", "people")
                     .waitingFor(Wait.defaultWaitStrategy());
 
 
     @Test
     public void shouldRunIntegrationTest() {
-        mysql.start();
-        System.setProperty("database.host", mysql.getContainerIpAddress());
-        System.setProperty("database.port", Integer.toString(mysql.getFirstMappedPort()));
+        postgres.start();
+        System.setProperty("database.host", postgres.getContainerIpAddress());
+        System.setProperty("database.port", Integer.toString(postgres.getFirstMappedPort()));
         System.setProperty("database.path", "people");
-        System.setProperty("database.username", "root");
+        System.setProperty("database.username", "postgres");
         System.setProperty("database.password", "password");
 
         Config config = new Config();
-        MySQL database = config.getCredential("database", MySQL::new);
+        PostgreSQL database = config.getCredential("database", PostgreSQL::new);
         DataSource dataSource = database.get();
         try (Connection connection = dataSource.getConnection()) {
 
-            String sql = "CREATE TABLE JAVA_PEOPLE (" +
-                    " id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY," +
-                    "name VARCHAR(30) NOT NULL," +
-                    "city VARCHAR(30) NOT NULL)";
+            String sql = "CREATE TABLE JAVA_FRAMEWORKS (" +
+                    " id SERIAL PRIMARY KEY," +
+                    "name VARCHAR(30) NOT NULL)";
 
             final Statement statement = connection.createStatement();
             statement.execute(sql);
 
-            sql = "INSERT INTO JAVA_PEOPLE (name, city) VALUES" +
-                    "('Neil Armstrong', 'Moon')," +
-                    "('Buzz Aldrin', 'Glen Ridge')," +
-                    "('Sally Ride', 'La Jolla')";
+            sql = "INSERT INTO JAVA_FRAMEWORKS (name) VALUES" +
+                    "('Spring')," +
+                    "('Jakarta EE')," +
+                    "('Eclipse JNoSQL')";
 
             statement.execute(sql);
 
-            sql = "SELECT * FROM JAVA_PEOPLE";
+            // Show table.
+            sql = "SELECT * FROM JAVA_FRAMEWORKS";
             final ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
-                String city = resultSet.getString("city");
+                Assertions.assertNotNull(id);
                 Assertions.assertNotNull(name);
-                Assertions.assertNotNull(city);
             }
-            statement.execute("DROP TABLE JAVA_PEOPLE");
+            statement.execute("DROP TABLE JAVA_FRAMEWORKS");
         } catch (Exception exp) {
-            Assertions.assertTrue(false, "An error when execute MySQL");
+            Assertions.assertTrue(false, "An error when execute PostgreSQL");
         } finally {
             System.clearProperty("database.host");
             System.clearProperty("database.port");
             System.clearProperty("database.path");
             System.clearProperty("database.username");
             System.clearProperty("database.password");
-            mysql.close();
+            postgres.close();
         }
 
     }
