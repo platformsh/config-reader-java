@@ -48,10 +48,11 @@ final class Credentials implements Supplier<Map<String, Credential>> {
     }
 
     private Credential getProperties(String key) {
-        return new Credential(properties.entrySet().stream()
+        final Map<String, Object> propertiesMap = properties.entrySet().stream()
                 .filter(e -> e.getKey().startsWith(key))
-                .collect(Collectors.toMap(e -> e.getKey().replace(key.concat("."), "")
-                        , e -> e.getValue())));
+                .collect(toMap(e -> e.getKey().replace(key.concat("."), "")
+                        , e -> e.getValue()));
+        return new Credential(propertiesMap);
     }
 
     private boolean isTestEnable() {
@@ -63,13 +64,10 @@ final class Credentials implements Supplier<Map<String, Credential>> {
     private static Map<String, Object> properties() {
         try {
             InputStream stream = MapConverter.class.getClassLoader().getResourceAsStream(SERVICE_JSON);
-            if (stream == null) {
-                return Collections.emptyMap();
-            }
-
             Properties properties = new Properties();
-            properties.load(stream);
-
+            if (stream != null) {
+                properties.load(stream);
+            }
             Properties javaProperties = System.getProperties();
             javaProperties.keySet().stream().forEach(k -> properties.put(k, javaProperties.get(k)));
             return properties.keySet().stream()
