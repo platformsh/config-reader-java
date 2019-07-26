@@ -23,9 +23,8 @@ public class MongoDBTest {
 
 
     @Test
-    public void test() {
+    public void shouldRunIntegrationTest() {
         mongodb.start();
-        System.out.println(mongodb.isRunning());
         System.setProperty("mongodb.host", mongodb.getContainerIpAddress());
         System.setProperty("mongodb.port", Integer.toString(mongodb.getFirstMappedPort()));
         System.setProperty("mongodb.path", "mongodb");
