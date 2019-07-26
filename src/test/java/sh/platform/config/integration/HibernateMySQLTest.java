@@ -9,12 +9,7 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import sh.platform.config.Config;
 import sh.platform.config.Hibernate;
-import sh.platform.config.MySQL;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
