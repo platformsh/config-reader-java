@@ -46,7 +46,7 @@ final class Credentials implements Supplier<Map<String, Credential>> {
         final Map<String, Object> propertiesMap = properties.entrySet().stream()
                 .filter(e -> e.getKey().startsWith(key))
                 .collect(toMap(e -> e.getKey().replace(key.concat("."), "")
-                        , e -> e.getValue()));
+                        , Map.Entry::getValue));
         return new Credential(propertiesMap);
     }
 
@@ -64,7 +64,7 @@ final class Credentials implements Supplier<Map<String, Credential>> {
             Properties javaProperties = System.getProperties();
             javaProperties.keySet().stream().forEach(k -> properties.put(k, javaProperties.get(k)));
             return properties.keySet().stream()
-                    .collect(toMap(k -> k.toString(), k -> properties.get(k)));
+                    .collect(toMap(Object::toString, properties::get));
         } catch (Exception exp) {
             throw new FallbackException("An error when load the default configuration", exp);
         }
