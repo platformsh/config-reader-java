@@ -3,8 +3,10 @@ package sh.platform.config;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toMap;
@@ -12,6 +14,8 @@ import static java.util.stream.Collectors.toMap;
 final class Credentials implements Supplier<Map<String, Credential>> {
 
     private static final String SERVICE_JSON = "platform.properties";
+
+    private static final String TEST = "sh.platform.test.enable";
 
     private final Map<String, Credential> credentials;
 
@@ -28,18 +32,35 @@ final class Credentials implements Supplier<Map<String, Credential>> {
     }
 
     Credential getCredential(String key) {
-        return ofNullable(credentials.get(key))
-                .orElseThrow(() -> new PlatformShException("Credential does not found: " + key));
+        if (isTestEnable()) {
+            return getProperties(key);
+        } else {
+            return ofNullable(credentials.get(key))
+                    .orElseThrow(() -> new PlatformShException("Credential does not found: " + key));
+        }
     }
 
     <T> T getCredential(String key, CredentialFormatter<T> formatter) {
-        return ofNullable(credentials.get(key))
+        return ofNullable(getCredential(key))
                 .map(Credential::toMap)
                 .map(formatter::apply)
                 .orElseThrow(() -> new PlatformShException("Credential does not found: " + key));
     }
 
-    static Map<String, Object> properties() {
+    private Credential getProperties(String key) {
+        return new Credential(properties.entrySet().stream()
+                .filter(e -> e.getKey().startsWith(key))
+                .collect(Collectors.toMap(e -> e.getKey().replace(key.concat("."), "")
+                        , e -> e.getValue())));
+    }
+
+    private boolean isTestEnable() {
+        return Optional.ofNullable(System.getProperty(TEST))
+                .map(Boolean::valueOf)
+                .orElse(Boolean.TRUE) && credentials.isEmpty();
+    }
+
+    private static Map<String, Object> properties() {
         try {
             InputStream stream = MapConverter.class.getClassLoader().getResourceAsStream(SERVICE_JSON);
             if (stream == null) {
