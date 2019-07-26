@@ -31,7 +31,7 @@ public class Config {
 
     private final Map<PlatformVariables, String> envs;
 
-    private final Map<String, Credential> credentials;
+    private final Credentials credentials;
 
 
     Config(Map<String, String> envs) {
@@ -40,7 +40,7 @@ public class Config {
         this.routes = ofNullable(envs.get(PLATFORM_ROUTES.get()))
                 .map(MapConverter::toRoute).orElse(emptyMap());
         this.envs = PlatformVariables.toMap(envs);
-        this.credentials = ServiceConverter.INSTANCE.apply(envs);
+        this.credentials = new Credentials(ServiceConverter.INSTANCE.apply(envs));
 
     }
 
@@ -63,7 +63,7 @@ public class Config {
      * @return the available credentials
      */
     public Map<String, Credential> getCredentials() {
-        return credentials;
+        return credentials.get();
     }
 
     /**
