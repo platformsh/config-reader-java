@@ -1,12 +1,10 @@
 package sh.platform.config;
 
 import java.io.InputStream;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toMap;
@@ -14,8 +12,6 @@ import static java.util.stream.Collectors.toMap;
 final class Credentials implements Supplier<Map<String, Credential>> {
 
     private static final String SERVICE_JSON = "platform.properties";
-
-    private static final String TEST = "sh.platform.test.enable";
 
     private final Map<String, Credential> credentials;
 
@@ -56,9 +52,7 @@ final class Credentials implements Supplier<Map<String, Credential>> {
     }
 
     private boolean isTestEnable() {
-        return Optional.ofNullable(System.getProperty(TEST))
-                .map(Boolean::valueOf)
-                .orElse(Boolean.TRUE) && credentials.isEmpty();
+        return credentials.isEmpty();
     }
 
     private static Map<String, Object> properties() {
