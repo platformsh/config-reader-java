@@ -154,8 +154,7 @@ public class Config {
      */
     public Credential getCredential(String key) {
         Objects.requireNonNull(key, "key is required");
-        return Optional.ofNullable(credentials.get(key))
-                .orElseThrow(() -> new PlatformShException("Credential does not found: " + key));
+        return credentials.getCredential(key);
     }
 
     /**
@@ -167,10 +166,7 @@ public class Config {
     public <T> T getCredential(String key, CredentialFormatter<T> formatter) {
         Objects.requireNonNull(key, "key is required");
         Objects.requireNonNull(formatter, "formatter is required");
-        return Optional.ofNullable(credentials.get(key))
-                .map(Credential::toMap)
-                .map(formatter::apply)
-                .orElseThrow(() -> new PlatformShException("Credential does not found: " + key));
+        return credentials.getCredential(key, formatter);
     }
 
 
