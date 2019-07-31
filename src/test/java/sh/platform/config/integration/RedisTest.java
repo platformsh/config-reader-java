@@ -1,6 +1,7 @@
 package sh.platform.config.integration;
 
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import redis.clients.jedis.Jedis;
@@ -13,6 +14,9 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Integration test on Redis
+ */
 public class RedisTest {
 
     private final GenericContainer redis =
@@ -22,6 +26,7 @@ public class RedisTest {
 
 
     @Test
+    @DisplayName("Should run the integration MySQL")
     public void shouldRunIntegrationTest() {
         redis.start();
         System.setProperty("redis.host", redis.getContainerIpAddress());

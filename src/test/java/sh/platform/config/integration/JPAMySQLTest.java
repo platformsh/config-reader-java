@@ -2,6 +2,7 @@ package sh.platform.config.integration;
 
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import sh.platform.config.Config;
@@ -13,6 +14,9 @@ import javax.persistence.EntityTransaction;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Integration test between MySQL and JPA
+ */
 public class JPAMySQLTest {
 
     private GenericContainer mysql =
@@ -24,6 +28,7 @@ public class JPAMySQLTest {
 
 
     @Test
+    @DisplayName("Should run the integration test between MYSQL and hibernate")
     public void shouldRunIntegrationTest() {
         mysql.start();
         System.setProperty("database.host", mysql.getContainerIpAddress());

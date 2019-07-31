@@ -8,6 +8,10 @@ import java.util.function.Supplier;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toMap;
 
+/**
+ * The class who manage the Credentials from {@link PlatformVariables#PLATFORM_RELATIONSHIPS}.
+ * It has a list of {@link Credential}
+ */
 final class Credentials implements Supplier<Map<String, Credential>> {
 
     private static final String SERVICE_JSON = "platform.properties";

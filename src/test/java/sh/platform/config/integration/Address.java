@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * The Address entity mapping using JPA.
+ */
 @Entity
 @Table(name = "address")
 public class Address {

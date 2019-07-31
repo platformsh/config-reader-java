@@ -2,6 +2,7 @@ package sh.platform.config.integration;
 
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import sh.platform.config.Config;
@@ -12,6 +13,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+/**
+ * Integration test on MySQL
+ */
 public class MySQLTest {
 
     private GenericContainer mysql =
@@ -23,6 +27,7 @@ public class MySQLTest {
 
 
     @Test
+    @DisplayName("Should run the integration MySQL")
     public void shouldRunIntegrationTest() {
         mysql.start();
         System.setProperty("database.host", mysql.getContainerIpAddress());

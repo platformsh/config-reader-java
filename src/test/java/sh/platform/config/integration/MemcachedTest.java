@@ -2,6 +2,7 @@ package sh.platform.config.integration;
 
 import net.spy.memcached.MemcachedClient;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import sh.platform.config.Config;
@@ -9,6 +10,9 @@ import sh.platform.config.Memcached;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Integration test on Memcached
+ */
 public class MemcachedTest {
 
     private final GenericContainer memcached =
@@ -17,6 +21,7 @@ public class MemcachedTest {
                     .waitingFor(Wait.defaultWaitStrategy());
 
     @Test
+    @DisplayName("Should run the integration on Memcached")
     public void shouldRunIntegrationTest() {
         this.memcached.start();
         System.setProperty("memcached.host", memcached.getContainerIpAddress());

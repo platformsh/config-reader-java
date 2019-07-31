@@ -6,6 +6,7 @@ import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import sh.platform.config.Config;
@@ -13,7 +14,9 @@ import sh.platform.config.MongoDB;
 
 import static com.mongodb.client.model.Filters.eq;
 
-
+/**
+ * Integration test on MongoDB
+ */
 public class MongoDBTest {
 
     private GenericContainer mongodb =
@@ -23,6 +26,7 @@ public class MongoDBTest {
 
 
     @Test
+    @DisplayName("Should run the integration MongoDB")
     public void shouldRunIntegrationTest() {
         mongodb.start();
         System.setProperty("mongodb.host", mongodb.getContainerIpAddress());

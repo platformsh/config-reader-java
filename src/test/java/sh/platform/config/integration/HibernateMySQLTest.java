@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import sh.platform.config.Config;
@@ -17,6 +18,9 @@ import org.hibernate.cfg.Configuration;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+/**
+ * Integration test between MySQL and Hibernate.
+ */
 public class HibernateMySQLTest {
 
     private GenericContainer mysql =
@@ -28,6 +32,7 @@ public class HibernateMySQLTest {
 
 
     @Test
+    @DisplayName("Should run the integration test between MYSQL and Hibernate")
     public void shouldRunIntegrationTest() {
         mysql.start();
         System.setProperty("database.host", mysql.getContainerIpAddress());

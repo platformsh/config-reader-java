@@ -2,6 +2,7 @@ package sh.platform.config.integration;
 
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import sh.platform.config.Config;
@@ -13,6 +14,9 @@ import javax.persistence.EntityTransaction;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Integration test between PostgreSQL and Hibernate
+ */
 public class JPAPostgresqlSQLTest {
 
     private GenericContainer postgres =
@@ -24,6 +28,7 @@ public class JPAPostgresqlSQLTest {
 
 
     @Test
+    @DisplayName("Should run the integration between PostgreSQL and Hibernate")
     public void shouldRunIntegrationTest() {
         postgres.start();
         System.setProperty("database.host", postgres.getContainerIpAddress());

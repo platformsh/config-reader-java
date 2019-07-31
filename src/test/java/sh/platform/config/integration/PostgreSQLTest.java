@@ -2,6 +2,7 @@ package sh.platform.config.integration;
 
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import sh.platform.config.Config;
@@ -12,6 +13,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+/**
+ * Integration test on PostgreSQL
+ */
 public class PostgreSQLTest {
 
     private GenericContainer postgres =
@@ -23,6 +27,7 @@ public class PostgreSQLTest {
 
 
     @Test
+    @DisplayName("Should run the integration PostgreSQL")
     public void shouldRunIntegrationTest() {
         postgres.start();
         System.setProperty("database.host", postgres.getContainerIpAddress());
