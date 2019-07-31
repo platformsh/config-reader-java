@@ -1,8 +1,8 @@
 package sh.platform.config.integration;
 
 import net.spy.memcached.MemcachedClient;
-import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import sh.platform.config.Config;

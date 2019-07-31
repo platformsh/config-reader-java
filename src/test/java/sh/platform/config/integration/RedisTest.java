@@ -1,7 +1,7 @@
 package sh.platform.config.integration;
 
-import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import redis.clients.jedis.Jedis;
