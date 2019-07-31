@@ -2,6 +2,7 @@ package sh.platform.config.integration;
 
 import net.spy.memcached.MemcachedClient;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
@@ -13,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Integration test on Memcached
  */
+@Tag("integration")
 public class MemcachedTest {
 
     private final GenericContainer memcached =

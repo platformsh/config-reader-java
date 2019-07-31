@@ -2,6 +2,7 @@ package sh.platform.config.integration;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
@@ -16,6 +17,7 @@ import java.sql.Statement;
 /**
  * Integration test on MySQL
  */
+@Tag("integration")
 public class MySQLTest {
 
     private GenericContainer mysql =

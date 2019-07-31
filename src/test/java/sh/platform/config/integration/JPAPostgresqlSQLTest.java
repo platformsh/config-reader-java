@@ -2,6 +2,7 @@ package sh.platform.config.integration;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
@@ -17,6 +18,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * Integration test between PostgreSQL and Hibernate
  */
+@Tag("integration")
 public class JPAPostgresqlSQLTest {
 
     private GenericContainer postgres =

@@ -6,6 +6,7 @@ import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
@@ -17,6 +18,7 @@ import static com.mongodb.client.model.Filters.eq;
 /**
  * Integration test on MongoDB
  */
+@Tag("integration")
 public class MongoDBTest {
 
     private GenericContainer mongodb =
