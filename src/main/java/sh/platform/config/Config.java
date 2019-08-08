@@ -31,7 +31,7 @@ public class Config {
 
     private final Map<PlatformVariables, String> envs;
 
-    private final Map<String, Credential> credentials;
+    private final Credentials credentials;
 
 
     Config(Map<String, String> envs) {
@@ -40,7 +40,7 @@ public class Config {
         this.routes = ofNullable(envs.get(PLATFORM_ROUTES.get()))
                 .map(MapConverter::toRoute).orElse(emptyMap());
         this.envs = PlatformVariables.toMap(envs);
-        this.credentials = ServiceConverter.INSTANCE.apply(envs);
+        this.credentials = new Credentials(ServiceConverter.INSTANCE.apply(envs));
 
     }
 
@@ -63,7 +63,7 @@ public class Config {
      * @return the available credentials
      */
     public Map<String, Credential> getCredentials() {
-        return credentials;
+        return credentials.get();
     }
 
     /**
@@ -154,8 +154,7 @@ public class Config {
      */
     public Credential getCredential(String key) {
         Objects.requireNonNull(key, "key is required");
-        return Optional.ofNullable(credentials.get(key))
-                .orElseThrow(() -> new PlatformShException("Credential does not found: " + key));
+        return credentials.getCredential(key);
     }
 
     /**
@@ -167,10 +166,7 @@ public class Config {
     public <T> T getCredential(String key, CredentialFormatter<T> formatter) {
         Objects.requireNonNull(key, "key is required");
         Objects.requireNonNull(formatter, "formatter is required");
-        return Optional.ofNullable(credentials.get(key))
-                .map(Credential::toMap)
-                .map(formatter::apply)
-                .orElseThrow(() -> new PlatformShException("Credential does not found: " + key));
+        return credentials.getCredential(key, formatter);
     }
 
 

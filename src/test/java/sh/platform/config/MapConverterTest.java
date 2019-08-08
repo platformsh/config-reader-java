@@ -22,7 +22,7 @@ class MapConverterTest {
         assertEquals("database.internal", database.get("host"));
         assertEquals("246.0.97.91", database.get("ip"));
         assertEquals("main", database.get("path"));
-        assertEquals(3306, Number.class.cast(database.get("port")).intValue());
+        assertEquals(3306, ((Number) database.get("port")).intValue());
         assertEquals("mysql", database.get("scheme"));
         assertEquals("user", database.get("username"));
 

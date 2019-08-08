@@ -77,7 +77,7 @@ public class Credential {
                 .ofNullable(config.get(key))
                 .map(Object::toString)
                 .map(Double::parseDouble)
-                .map(aDouble -> aDouble.intValue());
+                .map(Double::intValue);
     }
 
     public String toString() {
