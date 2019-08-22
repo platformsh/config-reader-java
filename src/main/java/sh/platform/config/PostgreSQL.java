@@ -11,6 +11,9 @@ import java.util.function.Supplier;
  */
 public class PostgreSQL extends SQLDatabase implements Supplier<DataSource> {
 
+    static final String DRIVER = "org.postgresql.Driver";
+    static final String PROVIDER = "postgresql";
+
     public PostgreSQL(Map<String, Object> config) {
         super(config);
     }
