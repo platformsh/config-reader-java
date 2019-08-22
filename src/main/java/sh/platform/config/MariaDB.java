@@ -9,13 +9,13 @@ import java.util.function.Supplier;
 /**
  * A credential specialization that provides a {@link DataSource} using MySQL database
  */
-public class MySQL extends SQLDatabase implements Supplier<DataSource> {
+public class MariaDB extends SQLDatabase implements Supplier<DataSource> {
 
-    static final String DRIVER = "com.mysql.jdbc.Driver";
+    static final String DRIVER = "org.mariadb.jdbc.Driver";
 
-    static final String PROVIDER =  "mysql";
+    static final String PROVIDER =  "mariadb";
 
-    public MySQL(Map<String, Object> config) {
+    public MariaDB(Map<String, Object> config) {
         super(config);
     }
 
