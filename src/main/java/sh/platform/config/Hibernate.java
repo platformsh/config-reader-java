@@ -49,7 +49,7 @@ public class Hibernate extends Credential {
      */
     public SessionFactory getMariaDB(Configuration configuration) {
         Objects.requireNonNull(configuration, "configuration is required");
-        return getSessionFactory(configuration, "com.mysql.jdbc.Driver", "mysql");
+        return getSessionFactory(configuration, MariaDB.DRIVER, MariaDB.PROVIDER);
     }
 
     /**
@@ -58,7 +58,7 @@ public class Hibernate extends Credential {
      * @return a {@link SessionFactory}
      */
     public SessionFactory getMariaDB() {
-        return getSessionFactory(new Configuration(), "com.mysql.jdbc.Driver", "mysql");
+        return getSessionFactory(new Configuration(), MariaDB.DRIVER, MariaDB.PROVIDER);
     }
 
 

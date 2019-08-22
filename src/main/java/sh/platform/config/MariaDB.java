@@ -1,8 +1,9 @@
 package sh.platform.config;
 
-import com.mysql.cj.jdbc.MysqlDataSource;
+import org.mariadb.jdbc.MariaDbDataSource;
 
 import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -13,7 +14,7 @@ public class MariaDB extends SQLDatabase implements Supplier<DataSource> {
 
     static final String DRIVER = "org.mariadb.jdbc.Driver";
 
-    static final String PROVIDER =  "mariadb";
+    static final String PROVIDER = "mariadb";
 
     public MariaDB(Map<String, Object> config) {
         super(config);
@@ -21,12 +22,16 @@ public class MariaDB extends SQLDatabase implements Supplier<DataSource> {
 
     @Override
     public DataSource get() {
-        MysqlDataSource dataSource = new MysqlDataSource();
-        dataSource.setDatabaseName(getPath());
-        dataSource.setUser(getUserName());
-        dataSource.setPassword(getPassword());
-        dataSource.setPort(getPort());
-        dataSource.setServerName(getHost());
-        return dataSource;
+        try {
+            MariaDbDataSource dataSource = new MariaDbDataSource();
+            dataSource.setDatabaseName(getPath());
+            dataSource.setUser(getUserName());
+            dataSource.setPassword(getPassword());
+            dataSource.setPort(getPort());
+            dataSource.setServerName(getHost());
+            return dataSource;
+        } catch (SQLException exp) {
+            throw new PlatformShException("An error when read credential to start MariaDB DataSource", exp);
+        }
     }
 }
