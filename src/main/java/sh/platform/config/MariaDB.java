@@ -31,7 +31,7 @@ public class MariaDB extends SQLDatabase implements Supplier<DataSource> {
             dataSource.setServerName(getHost());
             return dataSource;
         } catch (SQLException exp) {
-            throw new PlatformShException("An error when read credential to start MariaDB DataSource", exp);
+            throw new PlatformShException("Invalid credentials: unable to start MariaDB DataSource", exp);
         }
     }
 }
