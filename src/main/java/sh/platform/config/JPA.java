@@ -24,9 +24,8 @@ public class JPA extends Credential {
     public EntityManagerFactory getPostgreSQL(String persistenceUnitName) {
         Objects.requireNonNull(persistenceUnitName, "persistenceUnitName");
 
-        return getEntityManagerFactory("org.postgresql.Driver", "postgresql", persistenceUnitName);
+        return getEntityManagerFactory(PostgreSQL.DRIVER, PostgreSQL.PROVIDER, persistenceUnitName);
     }
-
 
     /**
      * Create and return an EntityManagerFactory for the named persistence unit using the given properties.
@@ -36,7 +35,18 @@ public class JPA extends Credential {
     public EntityManagerFactory getMySQL(String persistenceUnitName) {
         Objects.requireNonNull(persistenceUnitName, "persistenceUnitName");
 
-        return getEntityManagerFactory("com.mysql.jdbc.Driver", "mysql", persistenceUnitName);
+        return getEntityManagerFactory(MySQL.DRIVER, MySQL.PROVIDER, persistenceUnitName);
+    }
+
+    /**
+     * Create and return an EntityManagerFactory for the named persistence unit using the given properties.
+     *
+     * @return {@link EntityManagerFactory}
+     */
+    public EntityManagerFactory getMariaDB(String persistenceUnitName) {
+        Objects.requireNonNull(persistenceUnitName, "persistenceUnitName");
+
+        return getEntityManagerFactory(MariaDB.DRIVER, MariaDB.PROVIDER, persistenceUnitName);
     }
 
 

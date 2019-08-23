@@ -28,7 +28,7 @@ public class Hibernate extends Credential {
      */
     public SessionFactory getMySQL(Configuration configuration) {
         Objects.requireNonNull(configuration, "configuration is required");
-        return getSessionFactory(configuration, "com.mysql.jdbc.Driver", "mysql");
+        return getSessionFactory(configuration, MySQL.DRIVER, MySQL.PROVIDER);
     }
 
     /**
@@ -37,8 +37,30 @@ public class Hibernate extends Credential {
      * @return a {@link SessionFactory}
      */
     public SessionFactory getMySQL() {
-        return getSessionFactory(new Configuration(), "com.mysql.jdbc.Driver", "mysql");
+        return getSessionFactory(new Configuration(), MySQL.DRIVER, MySQL.PROVIDER);
     }
+
+    /**
+     * Create and return an SessionFactory using MariaDB driver.
+     *
+     * @param configuration the hibernate properties configuration
+     * @return a {@link SessionFactory}
+     * @throws NullPointerException when properties is null
+     */
+    public SessionFactory getMariaDB(Configuration configuration) {
+        Objects.requireNonNull(configuration, "configuration is required");
+        return getSessionFactory(configuration, MariaDB.DRIVER, MariaDB.PROVIDER);
+    }
+
+    /**
+     * Create and return an SessionFactory using MariaDB driver.
+     *
+     * @return a {@link SessionFactory}
+     */
+    public SessionFactory getMariaDB() {
+        return getSessionFactory(new Configuration(), MariaDB.DRIVER, MariaDB.PROVIDER);
+    }
+
 
     /**
      * Create and return an SessionFactory using PostgreSQL driver.
@@ -49,7 +71,7 @@ public class Hibernate extends Credential {
      */
     public SessionFactory getPostgreSQL(Configuration configuration) {
         Objects.requireNonNull(configuration, "configuration is required");
-        return getSessionFactory(configuration, "org.postgresql.Driver", "postgresql");
+        return getSessionFactory(configuration, PostgreSQL.DRIVER, PostgreSQL.PROVIDER);
     }
 
     /**
@@ -59,7 +81,7 @@ public class Hibernate extends Credential {
      * @throws NullPointerException when properties is null
      */
     public SessionFactory getPostgreSQL() {
-        return getSessionFactory(new Configuration(), "org.postgresql.Driver", "postgresql");
+        return getSessionFactory(new Configuration(), PostgreSQL.DRIVER, PostgreSQL.PROVIDER);
     }
 
     private SessionFactory getSessionFactory(Configuration configuration, String driver, String provider) {

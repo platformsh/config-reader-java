@@ -11,6 +11,10 @@ import java.util.function.Supplier;
  */
 public class MySQL extends SQLDatabase implements Supplier<DataSource> {
 
+    static final String DRIVER = "com.mysql.jdbc.Driver";
+
+    static final String PROVIDER =  "mysql";
+
     public MySQL(Map<String, Object> config) {
         super(config);
     }
