@@ -50,6 +50,18 @@ class ConfigTest {
     }
 
     @ParameterizedTest
+    @JSONBase64("routes3.json")
+    public void shouldReturnRoutes(String base64Text) {
+        Map<String, String> variables = getVariables();
+        variables.put(PLATFORM_ROUTES.get(), base64Text);
+        Config config = new Config(variables);
+        Map<String, Route> routes = config.getRoutes();
+        assertNotNull(routes);
+        Assertions.assertEquals(4, routes.size());
+
+    }
+
+    @ParameterizedTest
     @JSONBase64("variables.json")
     public void shouldConvertVariables(String base64Text) {
         Map<String, String> variables = getVariables();

@@ -22,8 +22,8 @@ public class Route {
 
     private String to;
 
-    public String getId() {
-        return id;
+    public Optional<String> getId() {
+        return Optional.ofNullable(id);
     }
 
     public Optional<String> getUpstream() {
