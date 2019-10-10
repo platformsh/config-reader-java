@@ -112,9 +112,22 @@ class ConfigTest {
         List<Route> routes = config.getUpstreamRoutes("empty");
         assertNotNull(routes);
         assertTrue(routes.isEmpty());
-
     }
 
+    @ParameterizedTest
+    @JSONBase64("routes2.json")
+    public void shouldReturnPrimaryRoute(String base64Text) {
+        Map<String, String> variables = getVariables();
+        variables.put(PLATFORM_ROUTES.get(), base64Text);
+        Config config = new Config(variables);
+        Route route = config.getPrimaryRoute().get();
+
+        assertEquals("conference", route.getId().get());
+        assertEquals("https://{default}/conferences", route.getOriginalUrl());
+        assertEquals("upstream", route.getType());
+        assertEquals("conference", route.getUpstream().get());
+
+    }
 
     @ParameterizedTest
     @JSONBase64("variables.json")
