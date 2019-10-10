@@ -47,7 +47,7 @@ class ConfigTest {
         Map<String, Route> routes = config.getRoutes();
         assertNotNull(routes);
         Route route = routes.get("http://host.com/");
-        assertEquals(true, route.isRestrictRobots());
+        assertEquals(true, route.isRestrictRobotsEnabled());
         assertEquals("http://{default}/", route.getOriginalUrl());
         assertEquals(false, route.isPrimary());
     }

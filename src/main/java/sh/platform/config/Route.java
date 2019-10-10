@@ -46,7 +46,7 @@ public class Route {
         return to;
     }
 
-    public boolean isRestrictRobots() {
+    public boolean isRestrictRobotsEnabled() {
         return restrictRobots;
     }
 
