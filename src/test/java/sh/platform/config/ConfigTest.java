@@ -43,10 +43,10 @@ class ConfigTest {
         Config config = new Config(variables);
         Map<String, Route> routes = config.getRoutes();
         assertNotNull(routes);
-        Map<String, Object> host = (Map<String, Object>) routes.get("http://host.com/");
-        Assertions.assertEquals(true, host.get("restrict_robots"));
-        Assertions.assertEquals("http://{default}/", host.get("original_url"));
-        Assertions.assertEquals(false, host.get("primary"));
+        Route route =  routes.get("http://host.com/");
+        Assertions.assertEquals(true, route.isRestrictRobots());
+        Assertions.assertEquals("http://{default}/", route.getOriginalUrl());
+        Assertions.assertEquals(false, route.isPrimary());
     }
 
     @ParameterizedTest
