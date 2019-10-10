@@ -41,7 +41,7 @@ class ConfigTest {
         Map<String, String> variables = getVariables();
         variables.put(PLATFORM_ROUTES.get(), base64Text);
         Config config = new Config(variables);
-        Map<String, Object> routes = config.getRoutes();
+        Map<String, Route> routes = config.getRoutes();
         assertNotNull(routes);
         Map<String, Object> host = (Map<String, Object>) routes.get("http://host.com/");
         Assertions.assertEquals(true, host.get("restrict_robots"));

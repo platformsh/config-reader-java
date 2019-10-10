@@ -15,7 +15,7 @@ final class MapConverter {
     private static final Type SERVICE = new HashMap<String, List<Map<String, Object>>>() {
     }.getClass().getGenericSuperclass();
 
-    private static final Type ROUTE = new HashMap<String, Object>() {
+    private static final Type ROUTE = new HashMap<String, Route>() {
     }.getClass().getGenericSuperclass();
 
     private static final Type VARIABLES = new HashMap<String, String>() {
@@ -32,7 +32,7 @@ final class MapConverter {
         return GSON.fromJson(text, SERVICE);
     }
 
-    static Map<String, Object> toRoute(String routes) {
+    static Map<String, Route> toRoute(String routes) {
         String text = new String(Base64.getDecoder().decode(routes), UTF_8);
         return GSON.fromJson(text, ROUTE);
     }
