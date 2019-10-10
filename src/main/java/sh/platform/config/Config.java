@@ -27,7 +27,7 @@ public class Config {
 
     private final Map<String, String> variables;
 
-    private final Map<String, Object> routes;
+    private final Map<String, Route> routes;
 
     private final Map<PlatformVariables, String> envs;
 
@@ -69,7 +69,7 @@ public class Config {
     /**
      * @return describes the routes
      */
-    public Map<String, Object> getRoutes() {
+    public Map<String, Route> getRoutes() {
         return Collections.unmodifiableMap(routes);
     }
 
