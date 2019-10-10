@@ -13,6 +13,9 @@ public class Route {
     @SerializedName("original_url")
     private String originalUrl;
 
+    @SerializedName("restrict_robots")
+    private boolean restrictRobots;
+
     private boolean primary;
 
     private String type;
@@ -43,12 +46,17 @@ public class Route {
         return to;
     }
 
+    public boolean isRestrictRobots() {
+        return restrictRobots;
+    }
+
     @Override
     public String toString() {
         return "Route{" +
                 "id='" + id + '\'' +
                 ", upstream='" + upstream + '\'' +
                 ", originalUrl='" + originalUrl + '\'' +
+                ", restrictRobots=" + restrictRobots +
                 ", primary=" + primary +
                 ", type='" + type + '\'' +
                 ", to='" + to + '\'' +
