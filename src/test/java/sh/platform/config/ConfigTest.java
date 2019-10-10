@@ -6,8 +6,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import sh.platform.config.provider.JSONBase64;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -43,10 +46,10 @@ class ConfigTest {
         Config config = new Config(variables);
         Map<String, Route> routes = config.getRoutes();
         assertNotNull(routes);
-        Route route =  routes.get("http://host.com/");
-        Assertions.assertEquals(true, route.isRestrictRobots());
-        Assertions.assertEquals("http://{default}/", route.getOriginalUrl());
-        Assertions.assertEquals(false, route.isPrimary());
+        Route route = routes.get("http://host.com/");
+        assertEquals(true, route.isRestrictRobots());
+        assertEquals("http://{default}/", route.getOriginalUrl());
+        assertEquals(false, route.isPrimary());
     }
 
     @ParameterizedTest
@@ -57,9 +60,61 @@ class ConfigTest {
         Config config = new Config(variables);
         Map<String, Route> routes = config.getRoutes();
         assertNotNull(routes);
-        Assertions.assertEquals(4, routes.size());
+        assertEquals(4, routes.size());
+    }
+
+    @ParameterizedTest
+    @JSONBase64("routes2.json")
+    public void shouldReturnUpstreamRoutes(String base64Text) {
+        Map<String, String> variables = getVariables();
+        variables.put(PLATFORM_ROUTES.get(), base64Text);
+        Config config = new Config(variables);
+        List<Route> routes = config.getUpstreamRoutes();
+        assertNotNull(routes);
+        assertEquals(4, routes.size());
+
+        final String[] upstreams = routes.stream()
+                .map(Route::getUpstream)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .sorted()
+                .toArray(String[]::new);
+
+        assertArrayEquals(upstreams, new String[]{"client", "conference", "session", "speaker"});
+    }
+
+    @ParameterizedTest
+    @JSONBase64("routes2.json")
+    public void shouldReturnUpstreamRoutesFromName(String base64Text) {
+        Map<String, String> variables = getVariables();
+        variables.put(PLATFORM_ROUTES.get(), base64Text);
+        Config config = new Config(variables);
+        List<Route> routes = config.getUpstreamRoutes("client");
+        assertNotNull(routes);
+        assertEquals(1, routes.size());
+
+        final String[] upstreams = routes.stream()
+                .map(Route::getUpstream)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .sorted()
+                .toArray(String[]::new);
+
+        assertArrayEquals(upstreams, new String[]{"client"});
+    }
+
+    @ParameterizedTest
+    @JSONBase64("routes2.json")
+    public void shouldReturnEmptyUpstreamRoutes(String base64Text) {
+        Map<String, String> variables = getVariables();
+        variables.put(PLATFORM_ROUTES.get(), base64Text);
+        Config config = new Config(variables);
+        List<Route> routes = config.getUpstreamRoutes("empty");
+        assertNotNull(routes);
+        assertTrue(routes.isEmpty());
 
     }
+
 
     @ParameterizedTest
     @JSONBase64("variables.json")
@@ -68,8 +123,8 @@ class ConfigTest {
         variables.put(PLATFORM_VARIABLES.get(), base64Text);
         Config config = new Config(variables);
         Map<String, String> map = config.getVariables();
-        Assertions.assertEquals("8", map.get("java.version"));
-        Assertions.assertEquals("value", map.get("variable"));
+        assertEquals("8", map.get("java.version"));
+        assertEquals("value", map.get("variable"));
     }
 
     @ParameterizedTest
@@ -84,6 +139,7 @@ class ConfigTest {
         assertNotNull(database);
 
     }
+
     private Map<String, String> getVariables() {
         Map<String, String> variables = new HashMap<>();
         variables.put("ignore", "value");
