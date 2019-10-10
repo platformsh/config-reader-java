@@ -2,9 +2,12 @@ package sh.platform.config;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyMap;
 import static java.util.Optional.ofNullable;
@@ -25,6 +28,7 @@ import static sh.platform.config.PlatformVariables.PLATFORM_VARIABLES;
  */
 public class Config {
 
+    public static final Predicate<Route> IS_UPSTREAM = r -> "upstream".equals(r.getType());
     private final Map<String, String> variables;
 
     private final Map<String, Route> routes;
@@ -73,6 +77,43 @@ public class Config {
         return Collections.unmodifiableMap(routes);
     }
 
+    /**
+     * Returns the single route that is marked primary
+     *
+     * @return The single route that is marked as primary or {@link Optional#empty()}
+     */
+    public Optional<Route> getPrimaryRoute() {
+        return routes.values().stream()
+                .filter(Route::isPrimary)
+                .findFirst();
+    }
+
+    /**
+     * Returns all non-redirect routes
+     *
+     * @return Returns all non-redirect routes
+     */
+    public List<Route> getUpstreamRoutes() {
+        return routes.values().stream()
+                .filter(IS_UPSTREAM)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns all non-redirect routes whose upstream is the name app.
+     *
+     * @param name the application name
+     * @return the list
+     * @throws NullPointerException when name is null
+     */
+    public List<Route> getUpstreamRoutes(String name) {
+        Objects.requireNonNull(name, "name is required");
+        Predicate<Route> nameEquals = r -> name.equals(r.getUpstream().orElse(""));
+
+        return routes.values().stream()
+                .filter(IS_UPSTREAM.and(nameEquals))
+                .collect(Collectors.toList());
+    }
 
     /**
      * @return @{@link PlatformVariables#PLATFORM_APPLICATION_NAME}
