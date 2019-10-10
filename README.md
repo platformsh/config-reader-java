@@ -140,7 +140,7 @@ This method returns a dictionary of all variables defined.
 config.getRoutes();
 ```
 
-The `route()` method takes a single string for the route ID ("main" in this case) and returns the corresponding route array.  If the route is not found it will throw an exception.
+The `getRoutes()` method takes a single string for the route ID ("main" in this case) and returns the corresponding route array.  If the route is not found it will throw an exception.
 
 To access all routes, or to search for a route that has no ID, the `routes()` method returns an dictionary of routes keyed by their URL.  That mirrors the structure of the `PLATFORM_ROUTES` environment variable.
 
