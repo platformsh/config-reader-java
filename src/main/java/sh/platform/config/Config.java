@@ -10,7 +10,10 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyMap;
+import static java.util.Collections.unmodifiableList;
 import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.toList;
 import static sh.platform.config.PlatformVariables.PLATFORM_APPLICATION_NAME;
 import static sh.platform.config.PlatformVariables.PLATFORM_APP_DIR;
 import static sh.platform.config.PlatformVariables.PLATFORM_BRANCH;
@@ -67,7 +70,7 @@ public class Config {
      * @return the available credentials
      */
     public Map<String, Credential> getCredentials() {
-        return credentials.get();
+        return Collections.unmodifiableMap(credentials.get());
     }
 
     /**
@@ -94,9 +97,11 @@ public class Config {
      * @return Returns all non-redirect routes
      */
     public List<Route> getUpstreamRoutes() {
+
         return routes.values().stream()
                 .filter(IS_UPSTREAM)
-                .collect(Collectors.toList());
+                .collect(collectingAndThen(toList(),
+                        Collections::unmodifiableList));
     }
 
     /**
@@ -112,7 +117,8 @@ public class Config {
 
         return routes.values().stream()
                 .filter(IS_UPSTREAM.and(nameEquals))
-                .collect(Collectors.toList());
+                .collect(collectingAndThen(toList(),
+                        Collections::unmodifiableList));
     }
 
     /**
