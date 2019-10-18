@@ -10,17 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static sh.platform.config.PlatformVariables.PLATFORM_APPLICATION_NAME;
-import static sh.platform.config.PlatformVariables.PLATFORM_APP_DIR;
-import static sh.platform.config.PlatformVariables.PLATFORM_PROJECT;
-import static sh.platform.config.PlatformVariables.PLATFORM_RELATIONSHIPS;
-import static sh.platform.config.PlatformVariables.PLATFORM_ROUTES;
-import static sh.platform.config.PlatformVariables.PLATFORM_TREE_ID;
-import static sh.platform.config.PlatformVariables.PLATFORM_VARIABLES;
+import static org.junit.jupiter.api.Assertions.*;
+import static sh.platform.config.PlatformVariables.*;
 
 class ConfigTest {
 
@@ -127,6 +118,30 @@ class ConfigTest {
         assertEquals("upstream", route.getType());
         assertEquals("conference", route.getUpstream().get());
 
+    }
+
+
+    @ParameterizedTest
+    @JSONBase64("routes4.json")
+    public void shouldReturnById(String base64Text) {
+        Map<String, String> variables = getVariables();
+        variables.put(PLATFORM_ROUTES.get(), base64Text);
+        Config config = new Config(variables);
+        Optional<Route> route = config.getRoute("upstream");
+        assertNotNull(route);
+        assertTrue(route.isPresent());
+        assertTrue(route.map(Route::isPrimary).orElse(false));
+    }
+
+    @ParameterizedTest
+    @JSONBase64("routes4.json")
+    public void shouldReturnEmptyById(String base64Text) {
+        Map<String, String> variables = getVariables();
+        variables.put(PLATFORM_ROUTES.get(), base64Text);
+        Config config = new Config(variables);
+        Optional<Route> route = config.getRoute("not_found");
+        assertNotNull(route);
+        assertFalse(route.isPresent());
     }
 
     @ParameterizedTest

@@ -109,7 +109,6 @@ public class Config {
      * @return Returns all non-redirect routes
      */
     public List<Route> getUpstreamRoutes() {
-
         return routes.values().stream()
                 .filter(IS_UPSTREAM)
                 .collect(collectingAndThen(toList(),
