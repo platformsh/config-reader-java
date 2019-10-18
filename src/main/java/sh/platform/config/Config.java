@@ -92,6 +92,18 @@ public class Config {
     }
 
     /**
+     * Returns the single route from the id
+     *
+     * @param id the route id
+     * @return The single route that is marked as primary or {@link Optional#empty()}
+     */
+    public Optional<Route> getRoute(String id) {
+        return routes.values().stream()
+                .filter(r -> id.equals(r.getId().orElse(null)))
+                .findFirst();
+    }
+
+    /**
      * Returns all non-redirect routes
      *
      * @return Returns all non-redirect routes
@@ -120,6 +132,7 @@ public class Config {
                 .collect(collectingAndThen(toList(),
                         Collections::unmodifiableList));
     }
+
 
     /**
      * @return @{@link PlatformVariables#PLATFORM_APPLICATION_NAME}
