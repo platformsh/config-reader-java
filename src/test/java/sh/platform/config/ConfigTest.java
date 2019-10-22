@@ -6,18 +6,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import sh.platform.config.provider.JSONBase64;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static sh.platform.config.PlatformVariables.PLATFORM_APPLICATION_NAME;
-import static sh.platform.config.PlatformVariables.PLATFORM_APP_DIR;
-import static sh.platform.config.PlatformVariables.PLATFORM_PROJECT;
-import static sh.platform.config.PlatformVariables.PLATFORM_RELATIONSHIPS;
-import static sh.platform.config.PlatformVariables.PLATFORM_ROUTES;
-import static sh.platform.config.PlatformVariables.PLATFORM_TREE_ID;
-import static sh.platform.config.PlatformVariables.PLATFORM_VARIABLES;
+import static org.junit.jupiter.api.Assertions.*;
+import static sh.platform.config.PlatformVariables.*;
 
 class ConfigTest {
 
@@ -41,12 +35,112 @@ class ConfigTest {
         Map<String, String> variables = getVariables();
         variables.put(PLATFORM_ROUTES.get(), base64Text);
         Config config = new Config(variables);
-        Map<String, Object> routes = config.getRoutes();
+        Map<String, Route> routes = config.getRoutes();
         assertNotNull(routes);
-        Map<String, Object> host = (Map<String, Object>) routes.get("http://host.com/");
-        Assertions.assertEquals(true, host.get("restrict_robots"));
-        Assertions.assertEquals("http://{default}/", host.get("original_url"));
-        Assertions.assertEquals(false, host.get("primary"));
+        Route route = routes.get("http://host.com/");
+        assertEquals(true, route.isRestrictRobotsEnabled());
+        assertEquals("http://{default}/", route.getOriginalUrl());
+        assertEquals(false, route.isPrimary());
+    }
+
+    @ParameterizedTest
+    @JSONBase64("routes3.json")
+    public void shouldReturnRoutes(String base64Text) {
+        Map<String, String> variables = getVariables();
+        variables.put(PLATFORM_ROUTES.get(), base64Text);
+        Config config = new Config(variables);
+        Map<String, Route> routes = config.getRoutes();
+        assertNotNull(routes);
+        assertEquals(4, routes.size());
+    }
+
+    @ParameterizedTest
+    @JSONBase64("routes2.json")
+    public void shouldReturnUpstreamRoutes(String base64Text) {
+        Map<String, String> variables = getVariables();
+        variables.put(PLATFORM_ROUTES.get(), base64Text);
+        Config config = new Config(variables);
+        List<Route> routes = config.getUpstreamRoutes();
+        assertNotNull(routes);
+        assertEquals(4, routes.size());
+
+        final String[] upstreams = routes.stream()
+                .map(Route::getUpstream)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .sorted()
+                .toArray(String[]::new);
+
+        assertArrayEquals(upstreams, new String[]{"client", "conference", "session", "speaker"});
+    }
+
+    @ParameterizedTest
+    @JSONBase64("routes2.json")
+    public void shouldReturnUpstreamRoutesFromName(String base64Text) {
+        Map<String, String> variables = getVariables();
+        variables.put(PLATFORM_ROUTES.get(), base64Text);
+        Config config = new Config(variables);
+        List<Route> routes = config.getUpstreamRoutes("client");
+        assertNotNull(routes);
+        assertEquals(1, routes.size());
+
+        final String[] upstreams = routes.stream()
+                .map(Route::getUpstream)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .sorted()
+                .toArray(String[]::new);
+
+        assertArrayEquals(upstreams, new String[]{"client"});
+    }
+
+    @ParameterizedTest
+    @JSONBase64("routes2.json")
+    public void shouldReturnEmptyUpstreamRoutes(String base64Text) {
+        Map<String, String> variables = getVariables();
+        variables.put(PLATFORM_ROUTES.get(), base64Text);
+        Config config = new Config(variables);
+        List<Route> routes = config.getUpstreamRoutes("empty");
+        assertNotNull(routes);
+        assertTrue(routes.isEmpty());
+    }
+
+    @ParameterizedTest
+    @JSONBase64("routes2.json")
+    public void shouldReturnPrimaryRoute(String base64Text) {
+        Map<String, String> variables = getVariables();
+        variables.put(PLATFORM_ROUTES.get(), base64Text);
+        Config config = new Config(variables);
+        Route route = config.getPrimaryRoute().get();
+
+        assertEquals("conference", route.getId().get());
+        assertEquals("https://{default}/conferences", route.getOriginalUrl());
+        assertEquals("upstream", route.getType());
+        assertEquals("conference", route.getUpstream().get());
+
+    }
+
+    @ParameterizedTest
+    @JSONBase64("routes4.json")
+    public void shouldReturnById(String base64Text) {
+        Map<String, String> variables = getVariables();
+        variables.put(PLATFORM_ROUTES.get(), base64Text);
+        Config config = new Config(variables);
+        Optional<Route> route = config.getRoute("upstream");
+        assertNotNull(route);
+        assertTrue(route.isPresent());
+        assertTrue(route.map(Route::isPrimary).orElse(false));
+    }
+
+    @ParameterizedTest
+    @JSONBase64("routes4.json")
+    public void shouldReturnEmptyById(String base64Text) {
+        Map<String, String> variables = getVariables();
+        variables.put(PLATFORM_ROUTES.get(), base64Text);
+        Config config = new Config(variables);
+        Optional<Route> route = config.getRoute("not_found");
+        assertNotNull(route);
+        assertFalse(route.isPresent());
     }
 
     @ParameterizedTest
@@ -56,8 +150,8 @@ class ConfigTest {
         variables.put(PLATFORM_VARIABLES.get(), base64Text);
         Config config = new Config(variables);
         Map<String, String> map = config.getVariables();
-        Assertions.assertEquals("8", map.get("java.version"));
-        Assertions.assertEquals("value", map.get("variable"));
+        assertEquals("8", map.get("java.version"));
+        assertEquals("value", map.get("variable"));
     }
 
     @ParameterizedTest
@@ -72,6 +166,7 @@ class ConfigTest {
         assertNotNull(database);
 
     }
+
     private Map<String, String> getVariables() {
         Map<String, String> variables = new HashMap<>();
         variables.put("ignore", "value");

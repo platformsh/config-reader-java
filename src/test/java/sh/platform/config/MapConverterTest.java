@@ -34,13 +34,12 @@ class MapConverterTest {
     @ParameterizedTest
     @JSONBase64("routes.json")
     public void shouldConvertRoutes(String base64Text) {
-        Map<String, Object> routes = MapConverter.toRoute(base64Text);
+        Map<String, Route> routes = MapConverter.toRoute(base64Text);
         Assertions.assertNotNull(routes);
-        Map<String, Object> host = (Map<String, Object>) routes.get("http://host.com/");
-        assertEquals(true, host.get("restrict_robots"));
-        assertEquals("http://{default}/", host.get("original_url"));
-        assertEquals(false, host.get("primary"));
-
-
+        Route route = routes.get("http://host.com/");
+        assertEquals(true, route.isRestrictRobotsEnabled());
+        assertEquals("http://{default}/", route.getOriginalUrl());
+        assertEquals(false, route.isPrimary());
     }
+
 }

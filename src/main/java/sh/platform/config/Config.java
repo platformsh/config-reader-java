@@ -2,12 +2,18 @@ package sh.platform.config;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyMap;
+import static java.util.Collections.unmodifiableList;
 import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.toList;
 import static sh.platform.config.PlatformVariables.PLATFORM_APPLICATION_NAME;
 import static sh.platform.config.PlatformVariables.PLATFORM_APP_DIR;
 import static sh.platform.config.PlatformVariables.PLATFORM_BRANCH;
@@ -25,9 +31,10 @@ import static sh.platform.config.PlatformVariables.PLATFORM_VARIABLES;
  */
 public class Config {
 
+    public static final Predicate<Route> IS_UPSTREAM = r -> "upstream".equals(r.getType());
     private final Map<String, String> variables;
 
-    private final Map<String, Object> routes;
+    private final Map<String, Route> routes;
 
     private final Map<PlatformVariables, String> envs;
 
@@ -63,14 +70,66 @@ public class Config {
      * @return the available credentials
      */
     public Map<String, Credential> getCredentials() {
-        return credentials.get();
+        return Collections.unmodifiableMap(credentials.get());
     }
 
     /**
      * @return describes the routes
      */
-    public Map<String, Object> getRoutes() {
+    public Map<String, Route> getRoutes() {
         return Collections.unmodifiableMap(routes);
+    }
+
+    /**
+     * Returns the single route that is marked primary
+     *
+     * @return The single route that is marked as primary or {@link Optional#empty()}
+     */
+    public Optional<Route> getPrimaryRoute() {
+        return routes.values().stream()
+                .filter(Route::isPrimary)
+                .findFirst();
+    }
+
+    /**
+     * Returns the single route from the id
+     *
+     * @param id the route id
+     * @return The single route that is marked as primary or {@link Optional#empty()}
+     */
+    public Optional<Route> getRoute(String id) {
+        return routes.values().stream()
+                .filter(r -> id.equals(r.getId().orElse(null)))
+                .findFirst();
+    }
+
+    /**
+     * Returns all non-redirect routes
+     *
+     * @return Returns all non-redirect routes
+     */
+    public List<Route> getUpstreamRoutes() {
+        return routes.values().stream()
+                .filter(IS_UPSTREAM)
+                .collect(collectingAndThen(toList(),
+                        Collections::unmodifiableList));
+    }
+
+    /**
+     * Returns all non-redirect routes whose upstream is the name app.
+     *
+     * @param name the application name
+     * @return the list
+     * @throws NullPointerException when name is null
+     */
+    public List<Route> getUpstreamRoutes(String name) {
+        Objects.requireNonNull(name, "name is required");
+        Predicate<Route> nameEquals = r -> name.equals(r.getUpstream().orElse(""));
+
+        return routes.values().stream()
+                .filter(IS_UPSTREAM.and(nameEquals))
+                .collect(collectingAndThen(toList(),
+                        Collections::unmodifiableList));
     }
 
 
