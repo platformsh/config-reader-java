@@ -15,7 +15,7 @@ This library requires Java 8 or later.
 <dependency>
     <groupId>sh.platform</groupId>
     <artifactId>config</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>2.2.2</version>
 </dependency>
 ```
 
