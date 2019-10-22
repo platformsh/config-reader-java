@@ -22,7 +22,7 @@ This library requires Java 8 or later.
 ### Gradle 
 
 ```xml
-compile group: 'sh.platform', name: 'config', version: '0.0.1-SNAPSHOT'
+compile group: 'sh.platform', name: 'config', version: '2.2.2'
 
 ```
 
