@@ -120,7 +120,6 @@ class ConfigTest {
 
     }
 
-
     @ParameterizedTest
     @JSONBase64("routes4.json")
     public void shouldReturnById(String base64Text) {
