@@ -142,6 +142,6 @@ config.getRoutes();
 
 The `getRoute()` method takes a single string for the route ID ("main" in this case) and returns the corresponding route array.  If the route is not found it will throw an exception.
 
-To access all routes, or to search for a route that has no ID, the `routes()` method returns an dictionary of routes keyed by their URL.  That mirrors the structure of the `PLATFORM_ROUTES` environment variable.
+To access all routes, or to search for a route that has no ID, the `getRoutes()` method returns a dictionary of routes keyed by their URL.  That mirrors the structure of the `PLATFORM_ROUTES` environment variable.
 
 If called in the build phase an exception is thrown.
