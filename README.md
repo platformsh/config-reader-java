@@ -137,7 +137,7 @@ This method returns a dictionary of all variables defined.
 [Routes](https://docs.platform.sh/configuration/routes.html) on Platform.sh define how a project will handle incoming requests; that primarily means what application container will serve the request, but it also includes cache configuration, TLS settings, etc.  Routes may also have an optional ID, which is the preferred way to access them.
 
 ```java
-config.getRoutes();
+config.getRoute("main");
 ```
 
 The `getRoute()` method takes a single string for the route ID ("main" in this case) and returns the corresponding route array.  If the route is not found it will throw an exception.
