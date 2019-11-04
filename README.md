@@ -55,6 +55,8 @@ config.getproject();
 
 config.getTreeID();
 
+config.isDedicated();
+
 config.getProjectEntropy();
 ```
 
