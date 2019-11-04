@@ -30,7 +30,7 @@ import static sh.platform.config.PlatformVariables.PLATFORM_VARIABLES;
  */
 public class Config {
 
-    public static final Predicate<Route> IS_UPSTREAM = r -> "upstream".equals(r.getType());
+    private static final Predicate<Route> IS_UPSTREAM = r -> "upstream".equals(r.getType());
     private final Map<String, String> variables;
 
     private final Map<String, Route> routes;
@@ -210,7 +210,6 @@ public class Config {
         return Collections.unmodifiableMap(envs);
     }
 
-
     /**
      * A credential from a key
      *
@@ -234,7 +233,6 @@ public class Config {
         return credentials.getCredential(key, formatter);
     }
 
-
     private static Map<String, String> getEnvironments() {
         Map<String, String> envs = new HashMap<>(System.getenv());
         return envs;
@@ -247,7 +245,7 @@ public class Config {
 
     private Optional<String> getSafeString(PlatformVariables variable) {
         return Optional
-                .ofNullable(variables.get(variable.get()))
+                .ofNullable(envs.get(variable))
                 .map(Object::toString);
     }
 }
