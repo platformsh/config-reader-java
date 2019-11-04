@@ -138,7 +138,7 @@ public class Config {
     }
 
     /**
-     * Returns <b>true</b> if the application is on dedicated cluster at Platform.sh
+     * Returns <b>true</b> if the application is on dedicated cluster at Platform.sh.
      *
      * @return <b>true</b> if the application is on dedicated cluster at Platform.sh
      */
