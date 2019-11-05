@@ -7,7 +7,7 @@
 
 ## [2.2.2] - 2019-09-04
 
-* Adds support to MariaDB
+* Adds support for MariaDB
 * Adds support for Hibernate
 * Adds integration test on the services
 
