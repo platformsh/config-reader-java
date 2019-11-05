@@ -3,7 +3,7 @@
 ## [2.2.3] - 2019-10-04
 
 * `CHANGELOG` added.
-* `OnDedicated` method that determines if the current environment is a Platform.sh Dedicated environment. Replaces deprecated `OnEnterprise` method.
+* `isDedicated` method that determines if the current environment is a Platform.sh Dedicated environment. Replaces deprecated `isEnterprise` method.
 
 ## [2.2.2] - 2019-09-04
 
