@@ -140,7 +140,7 @@ public class Config {
     /**
      * Returns <b>true</b> if the application is on dedicated cluster at Platform.sh.
      *
-     * @return <b>true</b> if the application is on dedicated cluster at Platform.sh
+     * @return <b>true</b> if the application is on dedicated cluster at Platform.sh.
      */
     public boolean isDedicated() {
         return "enterprise".equals(getSafeString(PLATFORM_MODE).orElse(""));
