@@ -10,11 +10,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static sh.platform.config.PlatformVariables.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static sh.platform.config.PlatformVariables.PLATFORM_APPLICATION_NAME;
+import static sh.platform.config.PlatformVariables.PLATFORM_APP_DIR;
+import static sh.platform.config.PlatformVariables.PLATFORM_MODE;
+import static sh.platform.config.PlatformVariables.PLATFORM_PROJECT;
+import static sh.platform.config.PlatformVariables.PLATFORM_RELATIONSHIPS;
+import static sh.platform.config.PlatformVariables.PLATFORM_ROUTES;
+import static sh.platform.config.PlatformVariables.PLATFORM_TREE_ID;
+import static sh.platform.config.PlatformVariables.PLATFORM_VARIABLES;
 
 class ConfigTest {
-
 
     @Test
     public void shouldReturnVariable() {
@@ -28,6 +38,22 @@ class ConfigTest {
         assertTrue(config.getRoutes().isEmpty());
         assertTrue(config.getCredentials().isEmpty());
     }
+
+    @Test
+    public void shouldReturnIsDedicated() {
+        Map<String, String> variables = getVariables();
+        variables.put(PLATFORM_MODE.get(), "enterprise");
+        Config config = new Config(variables);
+        assertTrue(config.isDedicated());
+    }
+
+    @Test
+    public void shouldNotReturnIsDedicated() {
+        Map<String, String> variables = getVariables();
+        Config config = new Config(variables);
+        assertFalse(config.isDedicated());
+    }
+
 
     @ParameterizedTest
     @JSONBase64("routes.json")

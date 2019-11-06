@@ -7,10 +7,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyMap;
-import static java.util.Collections.unmodifiableList;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toList;
@@ -19,6 +17,7 @@ import static sh.platform.config.PlatformVariables.PLATFORM_APP_DIR;
 import static sh.platform.config.PlatformVariables.PLATFORM_BRANCH;
 import static sh.platform.config.PlatformVariables.PLATFORM_DOCUMENT_ROOT;
 import static sh.platform.config.PlatformVariables.PLATFORM_ENVIRONMENT;
+import static sh.platform.config.PlatformVariables.PLATFORM_MODE;
 import static sh.platform.config.PlatformVariables.PLATFORM_PROJECT;
 import static sh.platform.config.PlatformVariables.PLATFORM_PROJECT_ENTROPY;
 import static sh.platform.config.PlatformVariables.PLATFORM_ROUTES;
@@ -31,7 +30,7 @@ import static sh.platform.config.PlatformVariables.PLATFORM_VARIABLES;
  */
 public class Config {
 
-    public static final Predicate<Route> IS_UPSTREAM = r -> "upstream".equals(r.getType());
+    private static final Predicate<Route> IS_UPSTREAM = r -> "upstream".equals(r.getType());
     private final Map<String, String> variables;
 
     private final Map<String, Route> routes;
@@ -39,7 +38,6 @@ public class Config {
     private final Map<PlatformVariables, String> envs;
 
     private final Credentials credentials;
-
 
     Config(Map<String, String> envs) {
         this.variables = ofNullable(envs.get(PLATFORM_VARIABLES.get()))
@@ -132,12 +130,20 @@ public class Config {
                         Collections::unmodifiableList));
     }
 
-
     /**
      * @return @{@link PlatformVariables#PLATFORM_APPLICATION_NAME}
      */
     public String getApplicationName() {
         return toString(PLATFORM_APPLICATION_NAME);
+    }
+
+    /**
+     * Returns <b>true</b> if the application is on dedicated cluster at Platform.sh.
+     *
+     * @return <b>true</b> if the application is on dedicated cluster at Platform.sh.
+     */
+    public boolean isDedicated() {
+        return "enterprise".equals(getSafeString(PLATFORM_MODE).orElse(""));
     }
 
     /**
@@ -204,7 +210,6 @@ public class Config {
         return Collections.unmodifiableMap(envs);
     }
 
-
     /**
      * A credential from a key
      *
@@ -228,16 +233,19 @@ public class Config {
         return credentials.getCredential(key, formatter);
     }
 
-
     private static Map<String, String> getEnvironments() {
         Map<String, String> envs = new HashMap<>(System.getenv());
         return envs;
     }
 
     private String toString(PlatformVariables variable) {
-        return Optional
-                .ofNullable(variables.get(variable.get()))
-                .map(Object::toString)
+        return getSafeString(variable)
                 .orElseThrow(() -> new PlatformShException("Variable does not exist on environment: " + variable.get()));
+    }
+
+    private Optional<String> getSafeString(PlatformVariables variable) {
+        return Optional
+                .ofNullable(envs.get(variable))
+                .map(Object::toString);
     }
 }

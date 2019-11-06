@@ -70,7 +70,12 @@ public enum PlatformVariables implements Supplier<String> {
      * A base64-encoded JSON object that describes the routes that you defined in the environment.
      * It maps the content of the .platform/routes.yaml file.
      */
-    PLATFORM_ROUTES;
+    PLATFORM_ROUTES,
+
+    /**
+     * Set to enterprise in an Enterprise environment (both production and staging).
+     */
+    PLATFORM_MODE;
 
     @Override
     public String get() {
