@@ -47,7 +47,7 @@
         <junit.version>5.5.0-M1</junit.version>
         <mongo.version>3.12.7</mongo.version>
         <mysql.version>8.0.21</mysql.version>
-        <postgresql.version>42.2.5</postgresql.version>
+        <postgresql.version>42.2.14</postgresql.version>
         <test.containers.version>1.12.0</test.containers.version>
     </properties>
 
